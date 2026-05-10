@@ -1,0 +1,143 @@
+.cadastro-page {
+  min-height: 100vh;
+  background:
+    linear-gradient(
+      rgba(0,0,0,0.45),
+      rgba(0,0,0,0.45)
+    ),
+    url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da');
+
+  background-size: cover;
+  background-position: center;
+}
+
+/* CONTAINER */
+
+.cadastro-container {
+  min-height: calc(100vh - 85px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 40px 20px;
+}
+
+/* CARD */
+
+.cadastro-form {
+  width: 100%;
+  max-width: 520px;
+
+  background: rgba(255,255,255,0.95);
+
+  backdrop-filter: blur(10px);
+
+  padding: 45px;
+
+  border-radius: 28px;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.15);
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+/* TITULO */
+
+.cadastro-form h1 {
+  color: #111;
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.cadastro-form p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+/* INPUTS */
+
+.cadastro-form input {
+  height: 58px;
+
+  border: 1px solid #ddd;
+
+  border-radius: 16px;
+
+  padding: 0 18px;
+
+  outline: none;
+
+  font-size: 1rem;
+
+  transition: 0.2s;
+
+  background: #fafafa;
+}
+
+.cadastro-form input:focus {
+  border-color: #d50000;
+  background: white;
+}
+
+/* BOTÃO */
+
+.cadastro-form button {
+  height: 58px;
+
+  border: none;
+
+  border-radius: 16px;
+
+  background: #d50000;
+
+  color: white;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+
+  margin-top: 10px;
+}
+
+.cadastro-form button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 18px rgba(213,0,0,0.3);
+}
+
+/* LINK */
+
+.cadastro-form span {
+  text-align: center;
+  color: #666;
+}
+
+.cadastro-form a {
+  color: #d50000;
+  font-weight: 700;
+  text-decoration: none;
+  margin-left: 6px;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 768px) {
+
+  .cadastro-form {
+    padding: 35px 25px;
+  }
+
+  .cadastro-form h1 {
+    font-size: 2rem;
+  }
+}

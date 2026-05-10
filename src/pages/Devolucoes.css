@@ -1,0 +1,85 @@
+.devolucoes-page {
+  padding: 30px;
+}
+
+.devolucoes-header {
+  margin-bottom: 30px;
+}
+
+.devolucoes-header h1 {
+  font-size: 2.5rem;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+.devolucoes-header p {
+  color: #666;
+}
+
+/* GRID */
+
+.devolucoes-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)
+  );
+  gap: 25px;
+}
+
+/* CARD */
+
+.devolucao-card {
+  background: white;
+  border-radius: 22px;
+  padding: 25px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+.devolucao-card h3 {
+  color: #111;
+  margin-bottom: 18px;
+}
+
+.devolucao-card p {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.devolucao-card strong {
+  color: #111;
+}
+
+.devolucao-card button {
+  width: 100%;
+  margin-top: 20px;
+  border: none;
+  background: #d50000;
+  color: white;
+  padding: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: 0.2s;
+}
+
+.devolucao-card button:hover {
+  opacity: 0.9;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 768px) {
+
+  .devolucoes-page {
+    padding: 20px;
+  }
+
+  .devolucoes-header h1 {
+    font-size: 2rem;
+  }
+
+  .devolucoes-grid {
+    grid-template-columns: 1fr;
+  }
+}

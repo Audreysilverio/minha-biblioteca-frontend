@@ -1,0 +1,150 @@
+.config-page {
+  padding: 30px;
+}
+
+.config-header {
+  margin-bottom: 30px;
+}
+
+.config-header h1 {
+  font-size: 2.5rem;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+.config-header p {
+  color: #666;
+}
+
+/* FORM */
+
+.config-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* CARD */
+
+.config-card {
+  background: white;
+  border-radius: 22px;
+  padding: 30px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+.config-card h2 {
+  margin-bottom: 25px;
+  color: #111;
+}
+
+/* INPUTS */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #111;
+}
+
+.form-group input {
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  outline: none;
+  font-size: 1rem;
+}
+
+/* SWITCH */
+
+.switch-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.switch-area p {
+  color: #666;
+  margin-top: 5px;
+}
+
+.switch {
+  position: relative;
+  width: 60px;
+  height: 32px;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background: #ccc;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.slider::before {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 4px;
+  top: 4px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.switch input:checked + .slider {
+  background: #d50000;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(28px);
+}
+
+/* BOTÃO */
+
+.save-btn {
+  background: #d50000;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.save-btn:hover {
+  opacity: 0.9;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 768px) {
+
+  .config-page {
+    padding: 20px;
+  }
+
+  .config-header h1 {
+    font-size: 2rem;
+  }
+
+  .switch-area {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}

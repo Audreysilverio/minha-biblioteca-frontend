@@ -1,0 +1,193 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: #f8f9fa; /* Fundo cinza claro da imagem */
+}
+
+/* O container principal que segura o projeto todo */
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* A área da direita (Header + Conteúdo das páginas) */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* Estilos globais do Dashboard (Cards e Títulos) */
+.dashboard-page {
+  padding: 30px 40px;
+}
+
+.dashboard-top-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.dashboard-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #111;
+}
+
+.dashboard-title span {
+  color: #d50000;
+}
+
+.dashboard-button {
+  background: #d50000;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 35px;
+}
+
+.dashboard-box {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.dashboard-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.4rem;
+}
+
+.red-bg { background: #d50000; }
+.black-bg { background: #111; }
+.pink-bg { background: #c2185b; }
+
+/* TEXTO DOS CARDS */
+
+.dashboard-box h2 {
+  font-size: 2rem;
+  color: #111;
+  margin-bottom: 5px;
+}
+
+.dashboard-box p {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* ÚLTIMOS LIVROS */
+
+.dashboard-last-books {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.dashboard-last-books h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #111;
+}
+
+.dashboard-book-row {
+  padding: 16px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.dashboard-book-row:last-child {
+  border-bottom: none;
+}
+
+.dashboard-book-row strong {
+  color: #111;
+  font-size: 1rem;
+}
+
+.dashboard-book-row p {
+  color: #666;
+  margin-top: 5px;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 1100px) {
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .dashboard-page {
+    padding: 20px;
+  }
+
+  .dashboard-top-area {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .dashboard-title {
+    font-size: 2rem;
+  }
+
+  .dashboard-button {
+    width: 100%;
+  }
+
+  .dashboard-box {
+    padding: 20px;
+  }
+
+  .dashboard-circle {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+
+  .dashboard-box h2 {
+    font-size: 1.7rem;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .dashboard-title {
+    font-size: 1.6rem;
+  }
+
+  .dashboard-last-books {
+    padding: 20px;
+  }
+
+}

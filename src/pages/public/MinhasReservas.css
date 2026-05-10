@@ -1,0 +1,90 @@
+.minhas-reservas-page {
+  min-height: 100vh;
+  background: #f8f9fa;
+}
+
+.reservas-container {
+  padding: 60px;
+}
+
+.reservas-container h1 {
+  font-size: 3rem;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+.reservas-container p {
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.reservas-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(260px, 1fr));
+
+  gap: 25px;
+}
+
+.reserva-card {
+  background: white;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 4px 14px rgba(0,0,0,0.06);
+}
+
+.reserva-card img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+}
+
+.reserva-info {
+  padding: 20px;
+}
+
+.reserva-info h3 {
+  color: #111;
+  margin-bottom: 10px;
+}
+
+.reserva-info p {
+  color: #666;
+  margin-bottom: 18px;
+}
+
+.reserva-info span {
+  display: inline-block;
+
+  background: #d50000;
+  color: white;
+
+  padding: 8px 16px;
+
+  border-radius: 999px;
+
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 768px) {
+
+  .reservas-container {
+    padding: 30px 20px;
+  }
+
+  .reservas-container h1 {
+    font-size: 2rem;
+  }
+
+  .reserva-card img {
+    height: 250px;
+  }
+}

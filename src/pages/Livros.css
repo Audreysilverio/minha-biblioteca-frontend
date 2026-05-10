@@ -1,0 +1,150 @@
+/* PÁGINA */
+
+.books-page {
+  padding: 30px;
+}
+
+/* TOPO */
+
+.section-title h2 {
+  font-size: 2.3rem;
+  color: #111;
+  margin-bottom: 20px;
+}
+
+.top-actions {
+  margin-bottom: 30px;
+}
+
+.top-actions button {
+  background: #d50000;
+  color: white;
+  border: none;
+  padding: 14px 22px;
+  border-radius: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.top-actions button:hover {
+  transform: translateY(-2px);
+}
+
+/* GRID */
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+/* CARD */
+
+.book-card {
+  background: white;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  transition: 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.book-card:hover {
+  transform: translateY(-4px);
+}
+
+.book-card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  background: #f2f2f2;
+}
+
+.book-card h3 {
+  font-size: 1.3rem;
+  color: #111;
+  margin: 18px 20px 8px;
+}
+
+.book-card p {
+  color: #666;
+  margin: 0 20px 10px;
+}
+
+/* TAG */
+
+.green,
+.red-tag {
+  margin: 10px 20px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  width: fit-content;
+}
+
+.green {
+  background: #e7f8ed;
+  color: #198754;
+}
+
+.red-tag {
+  background: #ffe5e5;
+  color: #d50000;
+}
+
+/* BOTÕES */
+
+.book-actions {
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+  margin-top: auto;
+}
+
+.book-actions button {
+  flex: 1;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.book-actions button:first-child {
+  background: #111;
+  color: white;
+}
+
+.book-actions .delete {
+  background: #d50000;
+  color: white;
+}
+
+.book-actions button:hover {
+  opacity: 0.9;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 768px) {
+
+  .books-page {
+    padding: 20px;
+  }
+
+  .section-title h2 {
+    font-size: 1.8rem;
+  }
+
+  .books-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .book-card img {
+    height: 220px;
+  }
+}
