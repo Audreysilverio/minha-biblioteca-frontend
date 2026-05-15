@@ -1,86 +1,179 @@
 import { useEffect, useState } from 'react'
-import { FaBook, FaCheckCircle, FaBookmark } from 'react-icons/fa'
+
+import {
+  FaBook,
+  FaExchangeAlt,
+  FaBookmark
+} from 'react-icons/fa'
+
 import api from '../services/api'
 
+import './Dashboard.css'
+
 export default function Dashboard() {
-  const [livros, setLivros] = useState([])
+
+  const [dados, setDados] =
+    useState({
+      livros: 0,
+      emprestimos: 0,
+      reservas: 0,
+      disponiveis: 0
+    })
 
   useEffect(() => {
-    carregarLivros()
+
+    carregarDados()
+
   }, [])
 
-  async function carregarLivros() {
+  async function carregarDados() {
+
     try {
-      const res = await api.get('/livros')
-      setLivros(res.data)
+
+      const livrosRes =
+        await api.get('/livros')
+
+      const emprestimosRes =
+        await api.get('/emprestimos')
+
+      const reservasRes =
+        await api.get('/reservas')
+
+      const livros =
+        livrosRes.data.livros ||
+        livrosRes.data
+
+      const emprestimos =
+        emprestimosRes.data
+
+      const reservas =
+        reservasRes.data
+
+      const disponiveis =
+        livros.filter(
+          livro =>
+            livro.quantidadeDisponivel > 0
+        )
+
+      setDados({
+
+        livros: livros.length,
+
+        emprestimos:
+          emprestimos.filter(
+            emp => !emp.devolvido
+          ).length,
+
+        reservas:
+          reservas.length,
+
+        disponiveis:
+          disponiveis.length
+
+      })
+
     } catch (error) {
+
       console.error(error)
     }
   }
 
-  const totalLivros = livros.reduce((total, livro) => total + (livro.quantidadeTotal || 0), 0)
-  const disponiveis = livros.reduce((total, livro) => total + (livro.quantidadeDisponivel || 0), 0)
-  const emprestados = totalLivros - disponiveis
-
   return (
+
     <div className="dashboard-page">
+
       <div className="dashboard-top-area">
-        <div>
-          <h1 className="dashboard-title">
-            Bem-vindo(a), <span>Administrador 👋</span>
-          </h1>
-          <p className="dashboard-subtitle">
-            Gerenciando o nosso acervo com facilidade.
-          </p>
-        </div>
-        <button className="dashboard-button">+ Novo Livro</button>
+
+        <h1 className="dashboard-title">
+
+          Minha <span>Biblioteca</span>
+
+        </h1>
+
       </div>
 
       <div className="dashboard-grid">
+
         <div className="dashboard-box">
+
           <div className="dashboard-circle red-bg">
+
             <FaBook />
+
           </div>
+
           <div>
-            <h2>{totalLivros}</h2>
-            <p>Total de livros</p>
+
+            <h2>
+              {dados.livros}
+            </h2>
+
+            <p>
+              Total de livros
+            </p>
+
           </div>
+
         </div>
 
         <div className="dashboard-box">
+
           <div className="dashboard-circle black-bg">
-            <FaCheckCircle />
+
+            <FaExchangeAlt />
+
           </div>
+
           <div>
-            <h2>{disponiveis}</h2>
-            <p>Disponíveis</p>
+
+            <h2>
+              {dados.emprestimos}
+            </h2>
+
+            <p>
+              Empréstimos ativos
+            </p>
+
           </div>
+
         </div>
 
         <div className="dashboard-box">
+
           <div className="dashboard-circle pink-bg">
+
             <FaBookmark />
+
           </div>
+
           <div>
-            <h2>{emprestados}</h2>
-            <p>Emprestados</p>
+
+            <h2>
+              {dados.reservas}
+            </h2>
+
+            <p>
+              Reservas
+            </p>
+
           </div>
+
         </div>
+
       </div>
 
       <div className="dashboard-last-books">
-        <h2>Últimos livros</h2>
-        {livros.length === 0 ? (
-          <p>Nenhum livro cadastrado.</p>
-        ) : (
-          livros.slice(0, 5).map(livro => (
-            <div key={livro._id} className="dashboard-book-row">
-              <strong>{livro.titulo}</strong>
-              <p>{livro.autor}</p>
-            </div>
-          ))
-        )}
+
+        <h2>
+          Livros disponíveis
+        </h2>
+
+        <h1>
+          {dados.disponiveis}
+        </h1>
+
       </div>
+
     </div>
   )
 }

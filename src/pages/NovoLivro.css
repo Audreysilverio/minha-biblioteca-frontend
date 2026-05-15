@@ -1,0 +1,54 @@
+.novo-livro-page {
+  padding: 30px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  background: white;
+
+  padding: 30px;
+
+  border-radius: 20px;
+
+  max-width: 700px;
+}
+
+.form input,
+.form textarea {
+  padding: 14px;
+
+  border: 1px solid #ddd;
+
+  border-radius: 10px;
+
+  font-size: 1rem;
+}
+
+.form button {
+  background: #d50000;
+
+  color: white;
+
+  border: none;
+
+  padding: 14px;
+
+  border-radius: 10px;
+
+  font-size: 1rem;
+
+  cursor: pointer;
+
+  font-weight: bold;
+}
+
+.preview-capa {
+  width: 180px;
+
+  border-radius: 10px;
+
+  margin-top: 10px;
+}

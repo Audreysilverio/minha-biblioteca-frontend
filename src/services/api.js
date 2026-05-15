@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'https://minha-biblioteca-api.onrender.com/api'
+  baseURL: 'https://biblioteca-api-final.onrender.com/api'
 })
 
 api.interceptors.request.use(config => {

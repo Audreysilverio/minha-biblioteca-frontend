@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
+
 import {
   useParams,
   useNavigate
 } from 'react-router-dom'
 
 import api from '../services/api'
+
 import './EditarLivro.css'
 
 export default function EditarLivro() {
@@ -13,13 +15,23 @@ export default function EditarLivro() {
 
   const navigate = useNavigate()
 
-  const [form, setForm] = useState({
-    titulo: '',
-    autor: '',
-    categoria: '',
-    descricao: '',
-    capa: ''
-  })
+  const [loading, setLoading] =
+    useState(true)
+
+  const [salvando, setSalvando] =
+    useState(false)
+
+  const [form, setForm] =
+    useState({
+
+      titulo: '',
+      autor: '',
+      categoria: '',
+      descricao: '',
+      capa: '',
+      quantidadeTotal: 1
+
+    })
 
   useEffect(() => {
 
@@ -41,6 +53,14 @@ export default function EditarLivro() {
           'Erro ao carregar livro:',
           err
         )
+
+        alert(
+          'Erro ao carregar livro'
+        )
+
+      } finally {
+
+        setLoading(false)
       }
     }
 
@@ -51,8 +71,12 @@ export default function EditarLivro() {
   function handleChange(e) {
 
     setForm({
+
       ...form,
-      [e.target.name]: e.target.value
+
+      [e.target.name]:
+        e.target.value
+
     })
   }
 
@@ -60,11 +84,25 @@ export default function EditarLivro() {
 
     e.preventDefault()
 
+    setSalvando(true)
+
     try {
 
       await api.put(
+
         `/livros/${id}`,
-        form
+
+        {
+
+          ...form,
+
+          quantidadeTotal:
+            Number(
+              form.quantidadeTotal
+            )
+
+        }
+
       )
 
       alert(
@@ -80,8 +118,19 @@ export default function EditarLivro() {
         err.response?.data || err
       )
 
-      alert('Erro ao atualizar livro')
+      alert(
+        'Erro ao atualizar livro'
+      )
+
+    } finally {
+
+      setSalvando(false)
     }
+  }
+
+  if (loading) {
+
+    return <h2>Carregando...</h2>
   }
 
   return (
@@ -90,7 +139,9 @@ export default function EditarLivro() {
 
       <div className="editar-header">
 
-        <h1>Editar Livro</h1>
+        <h1>
+          Editar Livro
+        </h1>
 
         <p>
           Atualize as informações do livro.
@@ -107,7 +158,9 @@ export default function EditarLivro() {
 
           <div className="form-group">
 
-            <label>Título</label>
+            <label>
+              Título
+            </label>
 
             <input
               name="titulo"
@@ -121,7 +174,9 @@ export default function EditarLivro() {
 
           <div className="form-group">
 
-            <label>Autor</label>
+            <label>
+              Autor
+            </label>
 
             <input
               name="autor"
@@ -137,7 +192,9 @@ export default function EditarLivro() {
 
         <div className="form-group">
 
-          <label>Categoria</label>
+          <label>
+            Categoria
+          </label>
 
           <input
             name="categoria"
@@ -150,12 +207,15 @@ export default function EditarLivro() {
 
         <div className="form-group">
 
-          <label>Descrição</label>
+          <label>
+            Quantidade total
+          </label>
 
-          <textarea
-            name="descricao"
-            placeholder="Descrição"
-            value={form.descricao}
+          <input
+            type="number"
+            min="1"
+            name="quantidadeTotal"
+            value={form.quantidadeTotal}
             onChange={handleChange}
           />
 
@@ -163,7 +223,25 @@ export default function EditarLivro() {
 
         <div className="form-group">
 
-          <label>URL da capa</label>
+          <label>
+            Descrição
+          </label>
+
+          <textarea
+            name="descricao"
+            placeholder="Descrição"
+            value={form.descricao}
+            onChange={handleChange}
+            rows="6"
+          />
+
+        </div>
+
+        <div className="form-group">
+
+          <label>
+            URL da capa
+          </label>
 
           <input
             name="capa"
@@ -194,8 +272,15 @@ export default function EditarLivro() {
           <button
             type="submit"
             className="salvar-btn"
+            disabled={salvando}
           >
-            Salvar alterações
+
+            {
+              salvando
+                ? 'Salvando...'
+                : 'Salvar alterações'
+            }
+
           </button>
 
           <button
@@ -205,7 +290,9 @@ export default function EditarLivro() {
               navigate('/livros')
             }
           >
+
             Cancelar
+
           </button>
 
         </div>

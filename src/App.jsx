@@ -22,7 +22,6 @@ import EditarLivro from './pages/EditarLivro'
 
 import Categorias from './pages/Categorias'
 import Emprestimos from './pages/Emprestimos'
-import Devolucoes from './pages/Devolucoes'
 import Relatorios from './pages/Relatorios'
 import Configuracoes from './pages/Configuracoes'
 import Reservas from './pages/Reservas'
@@ -82,11 +81,6 @@ function AdminLayout() {
           />
 
           <Route
-            path="/devolucoes"
-            element={<Devolucoes />}
-          />
-
-          <Route
             path="/relatorios"
             element={<Relatorios />}
           />
@@ -116,68 +110,72 @@ function App() {
 
   return (
 
-    <BrowserRouter>
+    <div className="app-wrapper">
 
-      <Routes>
+      <BrowserRouter>
 
-        {/* PUBLICO */}
+        <Routes>
 
-        <Route
-          path="/"
-          element={<Home />}
-        />
+          {/* PUBLICO */}
 
-        <Route
-          path="/catalogo"
-          element={<Catalogo />}
-        />
+          <Route
+            path="/"
+            element={<Home />}
+          />
 
-        <Route
-          path="/sobre"
-          element={<Sobre />}
-        />
+          <Route
+            path="/catalogo"
+            element={<Catalogo />}
+          />
 
-        <Route
-          path="/cadastro"
-          element={<Cadastro />}
-        />
+          <Route
+            path="/sobre"
+            element={<Sobre />}
+          />
 
-        <Route
-          path="/entrar"
-          element={<LoginUsuario />}
-        />
+          <Route
+            path="/cadastro"
+            element={<Cadastro />}
+          />
 
-        <Route
-          path="/minhas-reservas"
-          element={<MinhasReservas />}
-        />
+          <Route
+            path="/entrar"
+            element={<LoginUsuario />}
+          />
 
-        <Route
-          path="/livro/:id"
-          element={<LivroDetalhes />}
-        />
+          <Route
+            path="/minhas-reservas"
+            element={<MinhasReservas />}
+          />
 
-        {/* LOGIN ADMIN */}
+          <Route
+            path="/livro/:id"
+            element={<LivroDetalhes />}
+          />
 
-        <Route
-          path="/login"
-          element={<Login />}
-        />
+          {/* LOGIN ADMIN */}
 
-        {/* ADMIN */}
+          <Route
+            path="/login"
+            element={<Login />}
+          />
 
-        <Route
-          path="/*"
-          element={
-            token
-              ? <AdminLayout />
-              : <Navigate to="/login" />
-          }
-        />
+          {/* ADMIN */}
 
-      </Routes>
+          <Route
+            path="/*"
+            element={
+              token
+                ? <AdminLayout />
+                : <Navigate to="/login" />
+            }
+          />
 
-    </BrowserRouter>
+        </Routes>
+
+      </BrowserRouter>
+
+    </div>
   )
 }
 

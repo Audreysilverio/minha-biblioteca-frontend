@@ -21,9 +21,14 @@ export default function LoginUsuario() {
   const [senha, setSenha] =
     useState('')
 
+  const [loading, setLoading] =
+    useState(false)
+
   async function handleLogin(e) {
 
     e.preventDefault()
+
+    setLoading(true)
 
     try {
 
@@ -47,16 +52,25 @@ export default function LoginUsuario() {
         )
       )
 
-      alert('Login realizado!')
+      alert(
+        'Login realizado!'
+      )
 
       navigate('/catalogo')
 
     } catch (error) {
 
       alert(
+
         error.response?.data?.erro ||
+
         'Erro ao realizar login'
+
       )
+
+    } finally {
+
+      setLoading(false)
     }
   }
 
@@ -73,7 +87,9 @@ export default function LoginUsuario() {
           onSubmit={handleLogin}
         >
 
-          <h1>Entrar</h1>
+          <h1>
+            Entrar
+          </h1>
 
           <p>
             Faça login para reservar livros.
@@ -84,7 +100,9 @@ export default function LoginUsuario() {
             placeholder="Email"
             value={email}
             onChange={e =>
-              setEmail(e.target.value)
+              setEmail(
+                e.target.value
+              )
             }
             required
           />
@@ -94,21 +112,36 @@ export default function LoginUsuario() {
             placeholder="Senha"
             value={senha}
             onChange={e =>
-              setSenha(e.target.value)
+              setSenha(
+                e.target.value
+              )
             }
             required
           />
 
-          <button type="submit">
-            Entrar
+          <button
+            type="submit"
+            disabled={loading}
+          >
+
+            {
+              loading
+                ? 'Entrando...'
+                : 'Entrar'
+            }
+
           </button>
 
           <span>
 
             Não possui conta?
 
+            {' '}
+
             <Link to="/cadastro">
+
               Criar conta
+
             </Link>
 
           </span>

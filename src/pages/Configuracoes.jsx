@@ -1,16 +1,24 @@
 import { useState } from 'react'
+
 import './Configuracoes.css'
 
 export default function Configuracoes() {
 
-  const [nomeBiblioteca, setNomeBiblioteca] =
-    useState('Minha Biblioteca')
+  const [nomeBiblioteca,
+    setNomeBiblioteca] =
+      useState('Minha Biblioteca')
 
-  const [email, setEmail] =
-    useState('admin@admin.com')
+  const [email,
+    setEmail] =
+      useState('admin@admin.com')
 
-  const [temaEscuro, setTemaEscuro] =
-    useState(false)
+  const [telefone,
+    setTelefone] =
+      useState('(11) 99999-9999')
+
+  const [endereco,
+    setEndereco] =
+      useState('São Paulo - SP')
 
   function salvarConfiguracoes(e) {
 
@@ -27,7 +35,9 @@ export default function Configuracoes() {
 
       <div className="config-header">
 
-        <h1>Configurações</h1>
+        <h1>
+          Configurações
+        </h1>
 
         <p>
           Personalize o sistema da biblioteca.
@@ -42,7 +52,9 @@ export default function Configuracoes() {
 
         <div className="config-card">
 
-          <h2>Informações Gerais</h2>
+          <h2>
+            Informações Gerais
+          </h2>
 
           <div className="form-group">
 
@@ -64,13 +76,53 @@ export default function Configuracoes() {
 
           <div className="form-group">
 
-            <label>Email</label>
+            <label>
+              Email
+            </label>
 
             <input
               type="email"
               value={email}
               onChange={e =>
-                setEmail(e.target.value)
+                setEmail(
+                  e.target.value
+                )
+              }
+            />
+
+          </div>
+
+          <div className="form-group">
+
+            <label>
+              Telefone
+            </label>
+
+            <input
+              type="text"
+              value={telefone}
+              onChange={e =>
+                setTelefone(
+                  e.target.value
+                )
+              }
+            />
+
+          </div>
+
+          <div className="form-group">
+
+            <label>
+              Endereço
+            </label>
+
+            <input
+              type="text"
+              value={endereco}
+              onChange={e =>
+                setEndereco(
+                  e.target.value
+                )
               }
             />
 
@@ -80,35 +132,26 @@ export default function Configuracoes() {
 
         <div className="config-card">
 
-          <h2>Aparência</h2>
+          <h2>
+            Sobre o sistema
+          </h2>
 
-          <div className="switch-area">
+          <p>
 
-            <div>
+            Sistema desenvolvido
+            para gerenciamento
+            de bibliotecas digitais.
 
-              <strong>Tema escuro</strong>
+          </p>
 
-              <p>
-                Ativar modo escuro do sistema
-              </p>
+          <p>
 
-            </div>
+            Projeto Integrador
+            utilizando React,
+            Node.js, Express,
+            MongoDB e API REST.
 
-            <label className="switch">
-
-              <input
-                type="checkbox"
-                checked={temaEscuro}
-                onChange={() =>
-                  setTemaEscuro(!temaEscuro)
-                }
-              />
-
-              <span className="slider"></span>
-
-            </label>
-
-          </div>
+          </p>
 
         </div>
 
@@ -116,7 +159,9 @@ export default function Configuracoes() {
           type="submit"
           className="save-btn"
         >
+
           Salvar alterações
+
         </button>
 
       </form>

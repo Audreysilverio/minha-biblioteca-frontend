@@ -1,24 +1,42 @@
 import { FaBell, FaSearch } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
+
 import './Header.css'
+
 export default function Header() {
 
   const navigate = useNavigate()
 
   function logout() {
+
     localStorage.removeItem('token')
+
     navigate('/login')
   }
 
   return (
+
     <header className="header">
 
       <div className="search-box">
-        <FaSearch />
-        <input type="text" placeholder="Pesquisar livros..." />
-      </div>
 
-      <div className="user-area">
+        <div className="search-box">
+
+  <FaSearch />
+
+  <input
+    type="text"
+    placeholder="Pesquisar livros..."
+    onChange={(e) =>
+      localStorage.setItem(
+        'busca',
+        e.target.value
+      )
+    }
+  />
+
+</div>
+        
         <FaBell />
 
         <span>Administrador</span>

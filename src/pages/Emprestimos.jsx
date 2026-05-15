@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react'
+
 import api from '../services/api'
+
 import './Emprestimos.css'
 
 export default function Emprestimo() {
 
-  const [livros, setLivros] = useState([])
+  const [livros, setLivros] =
+    useState([])
+
   const [emprestimos, setEmprestimos] =
     useState([])
 
@@ -14,9 +18,14 @@ export default function Emprestimo() {
   const [nomeLeitor, setNomeLeitor] =
     useState('')
 
+  const [loading, setLoading] =
+    useState(false)
+
   useEffect(() => {
+
     carregarLivros()
     carregarEmprestimos()
+
   }, [])
 
   async function carregarLivros() {
@@ -48,9 +57,8 @@ export default function Emprestimo() {
 
     try {
 
-      const res = await api.get(
-        '/emprestimos'
-      )
+      const res =
+        await api.get('/emprestimos')
 
       setEmprestimos(res.data)
 
@@ -63,6 +71,8 @@ export default function Emprestimo() {
   async function criarEmprestimo(e) {
 
     e.preventDefault()
+
+    setLoading(true)
 
     try {
 
@@ -93,10 +103,20 @@ export default function Emprestimo() {
         error.response?.data?.message ||
         'Erro ao realizar empréstimo'
       )
+
+    } finally {
+
+      setLoading(false)
     }
   }
 
   async function devolverLivro(id) {
+
+    const confirmar = window.confirm(
+      'Deseja devolver este livro?'
+    )
+
+    if (!confirmar) return
 
     try {
 
@@ -120,6 +140,16 @@ export default function Emprestimo() {
     }
   }
 
+  const emprestimosAtivos =
+    emprestimos.filter(
+      emp => !emp.devolvido
+    )
+
+  const emprestimosFinalizados =
+    emprestimos.filter(
+      emp => emp.devolvido
+    )
+
   return (
 
     <div className="emprestimos-page">
@@ -139,34 +169,56 @@ export default function Emprestimo() {
         onSubmit={criarEmprestimo}
       >
 
-        <select
-          value={livroId}
-          onChange={e =>
-            setLivroId(e.target.value)
-          }
-          required
-        >
+        {
+          livros.length === 0 ? (
 
-          <option value="">
-            Selecione um livro
-          </option>
+            <p>
+              Nenhum livro disponível
+              para empréstimo.
+            </p>
 
-          {
-            livros.map(livro => (
+          ) : (
 
-              <option
-                key={livro._id}
-                value={livro._id}
-              >
+            <select
+              value={livroId}
+              onChange={e =>
+                setLivroId(e.target.value)
+              }
+              required
+            >
 
-                {livro.titulo} - {livro.autor}
-
+              <option value="">
+                Selecione um livro
               </option>
 
-            ))
-          }
+              {
+                livros.map(livro => (
 
-        </select>
+                  <option
+                    key={livro._id}
+                    value={livro._id}
+                  >
+
+                    {livro.titulo}
+                    {' - '}
+                    {livro.autor}
+                    {' '}
+                    (
+                    {
+                      livro.quantidadeDisponivel
+                    }
+                    {' disponíveis'}
+                    )
+
+                  </option>
+
+                ))
+              }
+
+            </select>
+
+          )
+        }
 
         <input
           type="text"
@@ -178,24 +230,37 @@ export default function Emprestimo() {
           required
         />
 
-        <button type="submit">
-          Registrar empréstimo
+        <button
+          type="submit"
+          disabled={loading}
+        >
+
+          {
+            loading
+              ? 'Registrando...'
+              : 'Registrar empréstimo'
+          }
+
         </button>
 
       </form>
 
       <div className="emprestimos-lista">
 
+        <h2>
+          Empréstimos em andamento
+        </h2>
+
         {
-          emprestimos.length === 0 ? (
+          emprestimosAtivos.length === 0 ? (
 
             <p>
-              Nenhum empréstimo encontrado.
+              Nenhum empréstimo ativo.
             </p>
 
           ) : (
 
-            emprestimos.map(emp => (
+            emprestimosAtivos.map(emp => (
 
               <div
                 className="emprestimo-card"
@@ -208,48 +273,104 @@ export default function Emprestimo() {
 
                 <p>
 
-                  <strong>Leitor:</strong>{' '}
-
+                  <strong>Leitor:</strong>
+                  {' '}
                   {emp.nomeLeitor}
 
                 </p>
 
                 <p>
 
-                  <strong>Status:</strong>{' '}
+                  <strong>Data:</strong>
+                  {' '}
 
                   {
-                    emp.devolvido
-                      ? 'Devolvido'
-                      : 'Emprestado'
+                    new Date(
+                      emp.createdAt
+                    ).toLocaleDateString(
+                      'pt-BR'
+                    )
                   }
 
                 </p>
 
                 <span className="status-tag">
 
-                  {
-                    emp.devolvido
-                      ? 'Finalizado'
-                      : 'Em andamento'
-                  }
+                  Em andamento
 
                 </span>
 
-                {
-                  !emp.devolvido && (
+                <button
+                  className="devolver-btn"
+                  onClick={() =>
+                    devolverLivro(emp._id)
+                  }
+                >
+                  Devolver livro
+                </button>
 
-                    <button
-                      className="devolver-btn"
-                      onClick={() =>
-                        devolverLivro(emp._id)
-                      }
-                    >
-                      Devolver livro
-                    </button>
+              </div>
 
-                  )
-                }
+            ))
+          )
+        }
+
+      </div>
+
+      <div className="emprestimos-lista">
+
+        <h2>
+          Empréstimos finalizados
+        </h2>
+
+        {
+          emprestimosFinalizados.length === 0 ? (
+
+            <p>
+              Nenhum empréstimo finalizado.
+            </p>
+
+          ) : (
+
+            emprestimosFinalizados.map(emp => (
+
+              <div
+                className="emprestimo-card"
+                key={emp._id}
+              >
+
+                <h3>
+                  {emp.livro?.titulo}
+                </h3>
+
+                <p>
+
+                  <strong>Leitor:</strong>
+                  {' '}
+                  {emp.nomeLeitor}
+
+                </p>
+
+                <p>
+
+                  <strong>Data:</strong>
+                  {' '}
+
+                  {
+                    new Date(
+                      emp.createdAt
+                    ).toLocaleDateString(
+                      'pt-BR'
+                    )
+                  }
+
+                </p>
+
+                <span className="status-tag finalizado">
+
+                  Finalizado
+
+                </span>
 
               </div>
 

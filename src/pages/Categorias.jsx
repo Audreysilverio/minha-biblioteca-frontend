@@ -9,14 +9,21 @@ import './Categorias.css'
 
 export default function Categorias() {
 
-  const [categorias, setCategorias] =
-    useState([])
+  const [categorias,
+    setCategorias] =
+      useState([])
 
-  const [livros, setLivros] =
-    useState([])
+  const [livros,
+    setLivros] =
+      useState([])
 
   const [novaCategoria,
-    setNovaCategoria] = useState('')
+    setNovaCategoria] =
+      useState('')
+
+  const [loading,
+    setLoading] =
+      useState(true)
 
   useEffect(() => {
 
@@ -34,8 +41,10 @@ export default function Categorias() {
         await api.get('/categorias')
 
       setCategorias(
+
         res.data.categorias ||
         res.data
+
       )
 
     } catch (error) {
@@ -52,19 +61,32 @@ export default function Categorias() {
         await api.get('/livros')
 
       setLivros(
+
         res.data.livros ||
         res.data
+
       )
 
     } catch (error) {
 
       console.log(error)
+
+    } finally {
+
+      setLoading(false)
     }
   }
 
   async function criarCategoria(e) {
 
     e.preventDefault()
+
+    if (!novaCategoria.trim()) {
+
+      return alert(
+        'Digite uma categoria'
+      )
+    }
 
     try {
 
@@ -75,6 +97,10 @@ export default function Categorias() {
         }
       )
 
+      alert(
+        'Categoria criada com sucesso!'
+      )
+
       setNovaCategoria('')
 
       carregarCategorias()
@@ -82,7 +108,53 @@ export default function Categorias() {
     } catch (error) {
 
       console.log(error)
+
+      alert(
+        'Erro ao criar categoria'
+      )
     }
+  }
+
+  async function excluirCategoria(id) {
+
+    const confirmar = window.confirm(
+      'Deseja excluir esta categoria?'
+    )
+
+    if (!confirmar) return
+
+    try {
+
+      await api.delete(
+        `/categorias/${id}`
+      )
+
+      setCategorias(
+
+        categorias.filter(
+          categoria =>
+            categoria._id !== id
+        )
+
+      )
+
+      alert(
+        'Categoria excluída!'
+      )
+
+    } catch (error) {
+
+      console.log(error)
+
+      alert(
+        'Erro ao excluir categoria'
+      )
+    }
+  }
+
+  if (loading) {
+
+    return <h2>Carregando...</h2>
   }
 
   return (
@@ -115,7 +187,9 @@ export default function Categorias() {
         />
 
         <button type="submit">
+
           Criar Categoria
+
         </button>
 
       </form>
@@ -123,81 +197,112 @@ export default function Categorias() {
       <div className="categorias-grid">
 
         {
-          categorias.map(categoria => {
+          categorias.length === 0 ? (
 
-            const livrosCategoria =
-              livros.filter(livro =>
+            <p>
+              Nenhuma categoria cadastrada.
+            </p>
 
-                livro.categoria
-                  ?.trim()
-                  ?.toLowerCase()
+          ) : (
 
-                ===
+            categorias.map(categoria => {
 
-                categoria.nome
-                  ?.trim()
-                  ?.toLowerCase()
+              const livrosCategoria =
 
-              )
+                livros.filter(livro =>
 
-            return (
+                  livro.categoria
+                    ?.trim()
+                    ?.toLowerCase()
 
-              <div
-                className="categoria-card"
-                key={categoria._id}
-              >
+                  ===
 
-                <h3>
-                  {categoria.nome}
-                </h3>
+                  categoria.nome
+                    ?.trim()
+                    ?.toLowerCase()
 
-                <span>
-                  {
-                    livrosCategoria.length
-                  } livro(s)
-                </span>
+                )
 
-                <div className="categoria-livros">
+              return (
 
-                  {
-                    livrosCategoria.length === 0
-                      ? (
+                <div
+                  className="categoria-card"
+                  key={categoria._id}
+                >
 
-                        <p>
-                          Nenhum livro nesta categoria.
-                        </p>
+                  <div className="categoria-top">
 
-                      ) : (
+                    <h3>
+                      {categoria.nome}
+                    </h3>
 
-                        livrosCategoria.map(
-                          livro => (
+                    <button
+                      className="delete-cat"
+                      onClick={() =>
+                        excluirCategoria(
+                          categoria._id
+                        )
+                      }
+                    >
 
-                            <div
-                              className="categoria-livro-item"
-                              key={livro._id}
-                            >
+                      Excluir
 
-                              <strong>
-                                {livro.titulo}
-                              </strong>
+                    </button>
 
-                              <p>
-                                {livro.autor}
-                              </p>
+                  </div>
 
-                            </div>
+                  <span>
 
+                    {
+                      livrosCategoria.length
+                    }
+
+                    {' livro(s)'}
+
+                  </span>
+
+                  <div className="categoria-livros">
+
+                    {
+                      livrosCategoria.length === 0
+                        ? (
+
+                          <p>
+                            Nenhum livro nesta categoria.
+                          </p>
+
+                        ) : (
+
+                          livrosCategoria.map(
+                            livro => (
+
+                              <div
+                                className="categoria-livro-item"
+                                key={livro._id}
+                              >
+
+                                <strong>
+                                  {livro.titulo}
+                                </strong>
+
+                                <p>
+                                  {livro.autor}
+                                </p>
+
+                              </div>
+
+                            )
                           )
                         )
-                      )
-                  }
+                    }
+
+                  </div>
 
                 </div>
 
-              </div>
-
-            )
-          })
+              )
+            })
+          )
         }
 
       </div>

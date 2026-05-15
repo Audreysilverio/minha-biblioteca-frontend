@@ -12,9 +12,9 @@ import api from '../../services/api'
 
 import PublicHeader from '../../components/PublicHeader'
 
-import './LivroDetalhes.css'
-
 import Footer from '../../components/Footer'
+
+import './LivroDetalhes.css'
 
 export default function LivroDetalhes() {
 
@@ -24,6 +24,12 @@ export default function LivroDetalhes() {
 
   const [livro, setLivro] =
     useState(null)
+
+  const [loading, setLoading] =
+    useState(true)
+
+  const [reservando, setReservando] =
+    useState(false)
 
   const usuario =
     JSON.parse(
@@ -48,6 +54,10 @@ export default function LivroDetalhes() {
     } catch (error) {
 
       console.log(error)
+
+    } finally {
+
+      setLoading(false)
     }
   }
 
@@ -63,6 +73,8 @@ export default function LivroDetalhes() {
 
       return
     }
+
+    setReservando(true)
 
     try {
 
@@ -86,15 +98,27 @@ export default function LivroDetalhes() {
     } catch (error) {
 
       alert(
+
         error.response?.data?.erro ||
+
         'Erro ao reservar livro'
+
       )
+
+    } finally {
+
+      setReservando(false)
     }
+  }
+
+  if (loading) {
+
+    return <h1>Carregando...</h1>
   }
 
   if (!livro) {
 
-    return <h1>Carregando...</h1>
+    return <h1>Livro não encontrado.</h1>
   }
 
   return (
@@ -108,6 +132,7 @@ export default function LivroDetalhes() {
         <img
           src={
             livro.capa ||
+
             'https://via.placeholder.com/300'
           }
           alt={livro.titulo}
@@ -115,15 +140,51 @@ export default function LivroDetalhes() {
 
         <div className="livro-detalhes-info">
 
-          <h1>{livro.titulo}</h1>
+          <h1>
+            {livro.titulo}
+          </h1>
 
-          <h3>{livro.autor}</h3>
+          <h3>
+            {livro.autor}
+          </h3>
 
           <p>
             {livro.descricao}
           </p>
 
-          <span>
+          <p>
+
+            <strong>
+              Categoria:
+            </strong>
+
+            {' '}
+
+            {livro.categoria}
+
+          </p>
+
+          <p>
+
+            <strong>
+              Exemplares disponíveis:
+            </strong>
+
+            {' '}
+
+            {
+              livro.quantidadeDisponivel
+            }
+
+          </p>
+
+          <span
+            className={
+              livro.quantidadeDisponivel > 0
+                ? 'disponivel'
+                : 'indisponivel'
+            }
+          >
 
             {
               livro.quantidadeDisponivel > 0
@@ -138,8 +199,15 @@ export default function LivroDetalhes() {
 
               <button
                 onClick={reservarLivro}
+                disabled={reservando}
               >
-                Reservar Livro
+
+                {
+                  reservando
+                    ? 'Reservando...'
+                    : 'Reservar Livro'
+                }
+
               </button>
 
             )
@@ -148,7 +216,9 @@ export default function LivroDetalhes() {
         </div>
 
       </div>
-          <Footer />
+
+      <Footer />
+
     </div>
   )
 }

@@ -12,6 +12,9 @@ export default function Reservas() {
   const [reservas, setReservas] =
     useState([])
 
+  const [loading, setLoading] =
+    useState(true)
+
   useEffect(() => {
 
     carregarReservas()
@@ -30,10 +33,20 @@ export default function Reservas() {
     } catch (error) {
 
       console.log(error)
+
+    } finally {
+
+      setLoading(false)
     }
   }
 
   async function aprovarReserva(id) {
+
+    const confirmar = window.confirm(
+      'Deseja aprovar esta reserva?'
+    )
+
+    if (!confirmar) return
 
     try {
 
@@ -55,6 +68,23 @@ export default function Reservas() {
     }
   }
 
+  const pendentes =
+    reservas.filter(
+      reserva =>
+        reserva.status === 'reservado'
+    )
+
+  const aprovadas =
+    reservas.filter(
+      reserva =>
+        reserva.status === 'aprovado'
+    )
+
+  if (loading) {
+
+    return <h2>Carregando...</h2>
+  }
+
   return (
 
     <div className="reservas-page">
@@ -67,67 +97,146 @@ export default function Reservas() {
 
       </div>
 
+      <h3 className="reserva-subtitle">
+
+        Reservas pendentes
+
+      </h3>
+
       <div className="reservas-grid">
 
         {
-          reservas.map(reserva => (
+          pendentes.length === 0 ? (
 
-            <div
-              className="reserva-admin-card"
-              key={reserva._id}
-            >
+            <p>
+              Nenhuma reserva pendente.
+            </p>
 
-              <img
-                src={
-                  reserva.livroId?.capa
-                }
-                alt={
-                  reserva.livroId?.titulo
-                }
-              />
+          ) : (
 
-              <h3>
-                {
-                  reserva.livroId?.titulo
-                }
-              </h3>
+            pendentes.map(reserva => (
 
-              <p>
+              <div
+                className="reserva-admin-card"
+                key={reserva._id}
+              >
 
-                Usuário:
+                <img
+                  src={
+                    reserva.livroId?.capa
+                  }
+                  alt={
+                    reserva.livroId?.titulo
+                  }
+                />
 
-                {
-                  reserva.usuarioId?.nome
-                }
+                <h3>
+                  {
+                    reserva.livroId?.titulo
+                  }
+                </h3>
 
-              </p>
+                <p>
 
-              <span>
-                {reserva.status}
-              </span>
+                  <strong>
+                    Usuário:
+                  </strong>
 
-              {
-                reserva.status ===
-                'reservado' && (
+                  {' '}
 
-                  <button
-                    onClick={() =>
-                      aprovarReserva(
-                        reserva._id
-                      )
-                    }
-                  >
+                  {
+                    reserva.usuarioId?.nome
+                  }
 
-                    Aprovar Reserva
+                </p>
 
-                  </button>
+                <span>
+                  {reserva.status}
+                </span>
 
-                )
-              }
+                <button
+                  onClick={() =>
+                    aprovarReserva(
+                      reserva._id
+                    )
+                  }
+                >
 
-            </div>
+                  Aprovar Reserva
 
-          ))
+                </button>
+
+              </div>
+
+            ))
+          )
+        }
+
+      </div>
+
+      <h3 className="reserva-subtitle">
+
+        Reservas aprovadas
+
+      </h3>
+
+      <div className="reservas-grid">
+
+        {
+          aprovadas.length === 0 ? (
+
+            <p>
+              Nenhuma reserva aprovada.
+            </p>
+
+          ) : (
+
+            aprovadas.map(reserva => (
+
+              <div
+                className="reserva-admin-card"
+                key={reserva._id}
+              >
+
+                <img
+                  src={
+                    reserva.livroId?.capa
+                  }
+                  alt={
+                    reserva.livroId?.titulo
+                  }
+                />
+
+                <h3>
+                  {
+                    reserva.livroId?.titulo
+                  }
+                </h3>
+
+                <p>
+
+                  <strong>
+                    Usuário:
+                  </strong>
+
+                  {' '}
+
+                  {
+                    reserva.usuarioId?.nome
+                  }
+
+                </p>
+
+                <span className="aprovado">
+
+                  Aprovado
+
+                </span>
+
+              </div>
+
+            ))
+          )
         }
 
       </div>

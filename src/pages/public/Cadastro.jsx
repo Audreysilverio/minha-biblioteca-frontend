@@ -1,5 +1,9 @@
 import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+
+import {
+  useNavigate,
+  Link
+} from 'react-router-dom'
 
 import api from '../../services/api'
 
@@ -11,14 +15,18 @@ export default function Cadastro() {
 
   const navigate = useNavigate()
 
-  const [form, setForm] = useState({
+  const [loading, setLoading] =
+    useState(false)
 
-    nome: '',
-    email: '',
-    senha: '',
-    telefone: ''
+  const [form, setForm] =
+    useState({
 
-  })
+      nome: '',
+      email: '',
+      senha: '',
+      telefone: ''
+
+    })
 
   function handleChange(e) {
 
@@ -26,7 +34,8 @@ export default function Cadastro() {
 
       ...form,
 
-      [e.target.name]: e.target.value
+      [e.target.name]:
+        e.target.value
 
     })
   }
@@ -35,11 +44,16 @@ export default function Cadastro() {
 
     e.preventDefault()
 
+    setLoading(true)
+
     try {
 
       await api.post(
+
         '/usuarios/register',
+
         form
+
       )
 
       alert(
@@ -51,9 +65,16 @@ export default function Cadastro() {
     } catch (error) {
 
       alert(
+
         error.response?.data?.erro ||
+
         'Erro ao cadastrar usuário'
+
       )
+
+    } finally {
+
+      setLoading(false)
     }
   }
 
@@ -70,7 +91,9 @@ export default function Cadastro() {
           onSubmit={handleSubmit}
         >
 
-          <h1>Criar conta</h1>
+          <h1>
+            Criar conta
+          </h1>
 
           <p>
             Cadastre-se para reservar livros.
@@ -100,6 +123,7 @@ export default function Cadastro() {
             placeholder="Senha"
             value={form.senha}
             onChange={handleChange}
+            minLength="6"
             required
           />
 
@@ -111,16 +135,29 @@ export default function Cadastro() {
             onChange={handleChange}
           />
 
-          <button type="submit">
-            Criar conta
+          <button
+            type="submit"
+            disabled={loading}
+          >
+
+            {
+              loading
+                ? 'Criando conta...'
+                : 'Criar conta'
+            }
+
           </button>
 
           <span>
 
             Já possui conta?
 
+            {' '}
+
             <Link to="/entrar">
+
               Entrar
+
             </Link>
 
           </span>

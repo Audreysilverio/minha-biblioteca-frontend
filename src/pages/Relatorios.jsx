@@ -1,21 +1,34 @@
 import { useEffect, useState } from 'react'
+
 import {
   FaBook,
   FaExchangeAlt,
-  FaCheckCircle
+  FaCheckCircle,
+  FaBookmark
 } from 'react-icons/fa'
 
 import api from '../services/api'
+
 import './Relatorios.css'
 
 export default function Relatorios() {
 
-  const [livros, setLivros] = useState([])
+  const [livros, setLivros] =
+    useState([])
+
   const [emprestimos, setEmprestimos] =
     useState([])
 
+  const [reservas, setReservas] =
+    useState([])
+
+  const [loading, setLoading] =
+    useState(true)
+
   useEffect(() => {
+
     carregarDados()
+
   }, [])
 
   async function carregarDados() {
@@ -28,28 +41,52 @@ export default function Relatorios() {
       const emprestimosRes =
         await api.get('/emprestimos')
 
+      const reservasRes =
+        await api.get('/reservas')
+
       setLivros(livrosRes.data)
 
-      setEmprestimos(emprestimosRes.data)
+      setEmprestimos(
+        emprestimosRes.data
+      )
+
+      setReservas(
+        reservasRes.data
+      )
 
     } catch (error) {
 
       console.error(error)
+
+    } finally {
+
+      setLoading(false)
     }
   }
 
-  const totalLivros = livros.reduce(
-    (total, livro) =>
-      total + (livro.quantidadeTotal || 0),
-    0
-  )
+  const totalLivros =
+    livros.reduce(
 
-  const disponiveis = livros.reduce(
-    (total, livro) =>
-      total +
-      (livro.quantidadeDisponivel || 0),
-    0
-  )
+      (total, livro) =>
+
+        total +
+        (livro.quantidadeTotal || 0),
+
+      0
+    )
+
+  const disponiveis =
+    livros.reduce(
+
+      (total, livro) =>
+
+        total +
+        (
+          livro.quantidadeDisponivel || 0
+        ),
+
+      0
+    )
 
   const totalEmprestimos =
     emprestimos.length
@@ -59,13 +96,23 @@ export default function Relatorios() {
       emp => emp.devolvido
     ).length
 
+  const reservasAtivas =
+    reservas.length
+
+  if (loading) {
+
+    return <h2>Carregando...</h2>
+  }
+
   return (
 
     <div className="relatorios-page">
 
       <div className="relatorios-header">
 
-        <h1>Relatórios</h1>
+        <h1>
+          Relatórios
+        </h1>
 
         <p>
           Visão geral da biblioteca.
@@ -78,12 +125,21 @@ export default function Relatorios() {
         <div className="relatorio-card">
 
           <div className="relatorio-icon red">
+
             <FaBook />
+
           </div>
 
           <div>
-            <h2>{totalLivros}</h2>
-            <p>Total de livros</p>
+
+            <h2>
+              {totalLivros}
+            </h2>
+
+            <p>
+              Total de livros
+            </p>
+
           </div>
 
         </div>
@@ -91,12 +147,21 @@ export default function Relatorios() {
         <div className="relatorio-card">
 
           <div className="relatorio-icon black">
+
             <FaCheckCircle />
+
           </div>
 
           <div>
-            <h2>{disponiveis}</h2>
-            <p>Disponíveis</p>
+
+            <h2>
+              {disponiveis}
+            </h2>
+
+            <p>
+              Disponíveis
+            </p>
+
           </div>
 
         </div>
@@ -104,12 +169,43 @@ export default function Relatorios() {
         <div className="relatorio-card">
 
           <div className="relatorio-icon pink">
+
             <FaExchangeAlt />
+
           </div>
 
           <div>
-            <h2>{totalEmprestimos}</h2>
-            <p>Empréstimos</p>
+
+            <h2>
+              {totalEmprestimos}
+            </h2>
+
+            <p>
+              Empréstimos
+            </p>
+
+          </div>
+
+        </div>
+
+        <div className="relatorio-card">
+
+          <div className="relatorio-icon red">
+
+            <FaBookmark />
+
+          </div>
+
+          <div>
+
+            <h2>
+              {reservasAtivas}
+            </h2>
+
+            <p>
+              Reservas
+            </p>
+
           </div>
 
         </div>
@@ -118,16 +214,32 @@ export default function Relatorios() {
 
       <div className="tabela-container">
 
-        <h2>Últimos empréstimos</h2>
+        <h2>
+          Últimos empréstimos
+        </h2>
 
         <table>
 
           <thead>
 
             <tr>
-              <th>Livro</th>
-              <th>Leitor</th>
-              <th>Status</th>
+
+              <th>
+                Livro
+              </th>
+
+              <th>
+                Leitor
+              </th>
+
+              <th>
+                Status
+              </th>
+
+              <th>
+                Data
+              </th>
+
             </tr>
 
           </thead>
@@ -138,9 +250,13 @@ export default function Relatorios() {
               emprestimos.length === 0 ? (
 
                 <tr>
-                  <td colSpan="3">
+
+                  <td colSpan="4">
+
                     Nenhum empréstimo encontrado.
+
                   </td>
+
                 </tr>
 
               ) : (
@@ -177,6 +293,18 @@ export default function Relatorios() {
 
                     </td>
 
+                    <td>
+
+                      {
+                        new Date(
+                          emp.createdAt
+                        ).toLocaleDateString(
+                          'pt-BR'
+                        )
+                      }
+
+                    </td>
+
                   </tr>
 
                 ))
@@ -186,6 +314,40 @@ export default function Relatorios() {
           </tbody>
 
         </table>
+
+      </div>
+
+      <div className="relatorios-footer">
+
+        <h3>
+          Resumo geral
+        </h3>
+
+        <p>
+
+          Livros devolvidos:
+          {' '}
+          <strong>
+            {devolvidos}
+          </strong>
+
+        </p>
+
+        <p>
+
+          Empréstimos ativos:
+          {' '}
+
+          <strong>
+
+            {
+              totalEmprestimos -
+              devolvidos
+            }
+
+          </strong>
+
+        </p>
 
       </div>
 

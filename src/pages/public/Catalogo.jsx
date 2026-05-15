@@ -1,19 +1,30 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import {
+  useEffect,
+  useState
+} from 'react'
+
+import {
+  useNavigate
+} from 'react-router-dom'
 
 import api from '../../services/api'
 
 import PublicHeader from '../../components/PublicHeader'
 
-import './Catalogo.css'
-
 import Footer from '../../components/Footer'
+
+import './Catalogo.css'
 
 export default function Catalogo() {
 
-  const [livros, setLivros] = useState([])
+  const [livros, setLivros] =
+    useState([])
 
-  const [busca, setBusca] = useState('')
+  const [busca, setBusca] =
+    useState('')
+
+  const [loading, setLoading] =
+    useState(true)
 
   const navigate = useNavigate()
 
@@ -23,20 +34,27 @@ export default function Catalogo() {
     )
 
   useEffect(() => {
+
     carregarLivros()
+
   }, [])
 
   async function carregarLivros() {
 
     try {
 
-      const res = await api.get('/livros')
+      const res =
+        await api.get('/livros')
 
       setLivros(res.data)
 
     } catch (error) {
 
       console.error(error)
+
+    } finally {
+
+      setLoading(false)
     }
   }
 
@@ -73,13 +91,17 @@ export default function Catalogo() {
     } catch (error) {
 
       alert(
+
         error.response?.data?.erro ||
+
         'Erro ao reservar livro'
+
       )
     }
   }
 
   const livrosFiltrados =
+
     livros.filter(livro =>
 
       livro.titulo
@@ -90,6 +112,11 @@ export default function Catalogo() {
 
     )
 
+  if (loading) {
+
+    return <h2>Carregando...</h2>
+  }
+
   return (
 
     <div className="catalogo-page">
@@ -98,7 +125,9 @@ export default function Catalogo() {
 
       <div className="catalogo-header">
 
-        <h1>Catálogo</h1>
+        <h1>
+          Catálogo
+        </h1>
 
         <p>
           Explore todos os livros disponíveis.
@@ -113,7 +142,9 @@ export default function Catalogo() {
           placeholder="Pesquisar livro..."
           value={busca}
           onChange={e =>
-            setBusca(e.target.value)
+            setBusca(
+              e.target.value
+            )
           }
         />
 
@@ -122,74 +153,99 @@ export default function Catalogo() {
       <div className="catalogo-grid">
 
         {
-          livrosFiltrados.map(livro => (
+          livrosFiltrados.length === 0 ? (
 
-            <div
-              className="catalogo-card"
-              key={livro._id}
-              onClick={() =>
-                navigate(
-                  `/livro/${livro._id}`
-                )
-              }
-            >
+            <p>
+              Nenhum livro encontrado.
+            </p>
 
-              <img
-                src={
-                  livro.capa ||
-                  'https://via.placeholder.com/200'
+          ) : (
+
+            livrosFiltrados.map(livro => (
+
+              <div
+                className="catalogo-card"
+                key={livro._id}
+                onClick={() =>
+                  navigate(
+                    `/livro/${livro._id}`
+                  )
                 }
-                alt={livro.titulo}
-              />
+              >
 
-              <div className="catalogo-info">
+                <img
+                  src={
+                    livro.capa ||
 
-                <h3>{livro.titulo}</h3>
-
-                <p>{livro.autor}</p>
-
-                <span
-                  className={
-                    livro.quantidadeDisponivel > 0
-                      ? 'disponivel'
-                      : 'indisponivel'
+                    'https://via.placeholder.com/200'
                   }
-                >
+                  alt={livro.titulo}
+                />
 
-                  {
-                    livro.quantidadeDisponivel > 0
-                      ? 'Disponível'
-                      : 'Indisponível'
-                  }
+                <div className="catalogo-info">
 
-                </span>
+                  <h3>
+                    {livro.titulo}
+                  </h3>
 
-                <button
-                  className="reservar-btn"
-                  onClick={(e) => {
+                  <p>
+                    {livro.autor}
+                  </p>
 
-                    e.stopPropagation()
+                  <span
+                    className={
+                      livro.quantidadeDisponivel > 0
+                        ? 'disponivel'
+                        : 'indisponivel'
+                    }
+                  >
 
-                    reservarLivro(
-                      livro._id
-                    )
+                    {
+                      livro.quantidadeDisponivel > 0
+                        ? 'Disponível'
+                        : 'Indisponível'
+                    }
 
-                  }}
-                >
+                  </span>
 
-                  Reservar Livro
+                  <button
+                    className="reservar-btn"
 
-                </button>
+                    disabled={
+                      livro.quantidadeDisponivel <= 0
+                    }
+
+                    onClick={(e) => {
+
+                      e.stopPropagation()
+
+                      reservarLivro(
+                        livro._id
+                      )
+
+                    }}
+                  >
+
+                    {
+                      livro.quantidadeDisponivel > 0
+                        ? 'Reservar Livro'
+                        : 'Indisponível'
+                    }
+
+                  </button>
+
+                </div>
 
               </div>
 
-            </div>
-
-          ))
+            ))
+          )
         }
 
       </div>
-            <Footer />
+
+      <Footer />
+
     </div>
   )
 }
