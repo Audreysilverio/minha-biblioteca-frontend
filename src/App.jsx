@@ -13,19 +13,17 @@ import Login from './pages/Login'
 
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
-
 import Dashboard from './components/Dashboard'
 
-import NovoLivro from './pages/NovoLivro'
 import Livros from './pages/Livros'
+import NovoLivro from './pages/NovoLivro'
 import EditarLivro from './pages/EditarLivro'
 
-import Categorias from './pages/Categorias'
 import Emprestimos from './pages/Emprestimos'
 import Relatorios from './pages/Relatorios'
 import Configuracoes from './pages/Configuracoes'
 
-/* PUBLICO */
+/* PÚBLICO */
 
 import Home from './pages/public/Home'
 import Catalogo from './pages/public/Catalogo'
@@ -35,14 +33,19 @@ import LoginUsuario from './pages/public/LoginUsuario'
 import LivroDetalhes from './pages/public/LivroDetalhes'
 
 function AdminLayout() {
+
   return (
+
     <div className="container">
+
       <Sidebar />
 
       <div className="main-content">
+
         <Header />
 
         <Routes>
+
           <Route
             path="/admin"
             element={<Dashboard />}
@@ -64,11 +67,6 @@ function AdminLayout() {
           />
 
           <Route
-            path="/categorias"
-            element={<Categorias />}
-          />
-
-          <Route
             path="/emprestimos"
             element={<Emprestimos />}
           />
@@ -82,22 +80,30 @@ function AdminLayout() {
             path="/configuracoes"
             element={<Configuracoes />}
           />
+
         </Routes>
+
       </div>
+
     </div>
+
   )
 }
 
 function App() {
+
   const token =
     localStorage.getItem('token')
 
   return (
+
     <div className="app-wrapper">
+
       <BrowserRouter>
+
         <Routes>
 
-          {/* PUBLICO */}
+          {/* PÚBLICO */}
 
           <Route
             path="/"
@@ -148,9 +154,13 @@ function App() {
               )
             }
           />
+
         </Routes>
+
       </BrowserRouter>
+
     </div>
+
   )
 }
 

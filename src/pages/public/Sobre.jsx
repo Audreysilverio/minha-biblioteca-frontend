@@ -28,7 +28,7 @@ export default function Sobre() {
             O projeto <strong>Minha Biblioteca </strong>
              foi desenvolvido pelos alunos do eixo
             de Computação da <strong>UNIVESP</strong>,
-            como parte do Projeto Integrador,
+            como parte do Projeto Integrador 3,
             com o objetivo de criar uma plataforma
             moderna, acessível e eficiente para
             gerenciamento de bibliotecas e incentivo
@@ -85,7 +85,7 @@ export default function Sobre() {
 
           <p>
 
-            A proposta do Minha Biblioteca é continuar
+            A proposta da Minha Biblioteca é continuar
             evoluindo, oferecendo novos recursos e
             contribuindo para o desenvolvimento educacional
             e cultural da comunidade atendida pela

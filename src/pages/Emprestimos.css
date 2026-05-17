@@ -10,12 +10,15 @@
 
 .emprestimos-header h1 {
   font-size: 2.5rem;
+
   color: #111;
+
   margin-bottom: 10px;
 }
 
 .emprestimos-header p {
   color: #666;
+
   font-size: 1rem;
 }
 
@@ -23,58 +26,87 @@
 
 .emprestimo-form {
   background: white;
+
   border-radius: 22px;
+
   padding: 25px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.06);
 
   display: flex;
+
   gap: 15px;
+
   align-items: center;
+
   margin-bottom: 35px;
+
   flex-wrap: wrap;
 }
 
 .emprestimo-form select,
 .emprestimo-form input {
   flex: 1;
+
   min-width: 220px;
 
   padding: 14px;
-  border: 1px solid #ddd;
+
+  border:
+    1px solid #ddd;
+
   border-radius: 12px;
 
   outline: none;
+
   font-size: 0.95rem;
+
+  transition: 0.2s;
 }
 
 .emprestimo-form select:focus,
 .emprestimo-form input:focus {
   border-color: #d50000;
+
+  box-shadow:
+    0 0 0 4px rgba(213, 0, 0, 0.08);
 }
 
 .emprestimo-form button {
   background: #d50000;
+
   color: white;
+
   border: none;
+
   padding: 14px 22px;
+
   border-radius: 12px;
+
   font-weight: 700;
+
   cursor: pointer;
+
   transition: 0.2s;
 }
 
 .emprestimo-form button:hover {
-  opacity: 0.9;
+  opacity: 0.92;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 8px 18px rgba(213, 0, 0, 0.2);
 }
 
 /* LISTA */
 
 .emprestimos-lista {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(280px, 1fr)
-  );
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(280px, 1fr));
 
   gap: 25px;
 }
@@ -83,19 +115,38 @@
 
 .emprestimo-card {
   background: white;
+
   border-radius: 22px;
+
   padding: 25px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.06);
+
+  transition: 0.2s;
+}
+
+.emprestimo-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.08);
 }
 
 .emprestimo-card h3 {
   color: #111;
+
   margin-bottom: 15px;
+
+  line-height: 1.4;
 }
 
 .emprestimo-card p {
   color: #666;
+
   margin-bottom: 10px;
+
+  font-size: 0.95rem;
 }
 
 .emprestimo-card strong {
@@ -114,10 +165,47 @@
   border-radius: 999px;
 
   background: #ffe5e5;
+
   color: #d50000;
 
   font-size: 0.85rem;
   font-weight: 700;
+}
+
+.status-green {
+  background: #e7f8ed;
+
+  color: #198754;
+}
+
+/* BOTÃO DEVOLVER */
+
+.emprestimo-card button {
+  margin-top: 18px;
+
+  width: 100%;
+
+  border: none;
+
+  padding: 12px;
+
+  border-radius: 12px;
+
+  background: #111;
+
+  color: white;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.emprestimo-card button:hover {
+  opacity: 0.92;
+
+  transform: translateY(-1px);
 }
 
 /* RESPONSIVO */
@@ -134,6 +222,7 @@
 
   .emprestimo-form {
     flex-direction: column;
+
     align-items: stretch;
   }
 
@@ -144,4 +233,5 @@
   .emprestimos-lista {
     grid-template-columns: 1fr;
   }
+
 }

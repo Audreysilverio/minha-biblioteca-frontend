@@ -5,7 +5,6 @@ import { NavLink } from 'react-router-dom'
 import {
   FaHome,
   FaBook,
-  FaTags,
   FaExchangeAlt,
   FaChartBar,
   FaCog
@@ -16,6 +15,7 @@ import './Sidebar.css'
 export default function Sidebar() {
 
   const menu = [
+
     {
       nome: 'Início',
       rota: '/admin',
@@ -26,12 +26,6 @@ export default function Sidebar() {
       nome: 'Livros',
       rota: '/livros',
       icon: <FaBook />
-    },
-
-    {
-      nome: 'Categorias',
-      rota: '/categorias',
-      icon: <FaTags />
     },
 
     {
@@ -51,6 +45,7 @@ export default function Sidebar() {
       rota: '/configuracoes',
       icon: <FaCog />
     }
+
   ]
 
   return (
@@ -74,7 +69,11 @@ export default function Sidebar() {
             key={item.nome}
             to={item.rota}
             className={({ isActive }) =>
-              isActive ? 'active' : ''
+
+              isActive
+                ? 'active'
+                : ''
+
             }
           >
 
