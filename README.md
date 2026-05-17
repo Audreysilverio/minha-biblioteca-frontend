@@ -1,16 +1,206 @@
-# React + Vite
+# 📚 Minha Biblioteca
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  Sistema web para gerenciamento de bibliotecas digitais desenvolvido com foco em tecnologia, acessibilidade e impacto social.
+</p>
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌐 Sobre o Projeto
 
-## React Compiler
+O projeto **Minha Biblioteca** foi desenvolvido pelos alunos do eixo de Computação da **UNIVESP** como parte do **Projeto Integrador**, com o objetivo de criar uma plataforma moderna e intuitiva para gerenciamento de bibliotecas digitais.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+A aplicação foi pensada para facilitar o acesso à leitura, organizar livros, controlar empréstimos e aproximar a comunidade do universo da educação através da tecnologia.
 
-## Expanding the ESLint configuration
+O sistema também possui um importante propósito social, contribuindo com iniciativas da comunidade da **Associação Sempre Zaki Narchi (ASZN)**.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+# ✨ Funcionalidades
+
+## 👥 Área Pública
+
+- 📖 Catálogo de livros
+- 🔎 Busca por título e autor
+- 📚 Página de detalhes do livro
+- 👤 Cadastro de usuários
+- 🔐 Login de usuários
+- 📱 Interface responsiva
+
+---
+
+## 🛠 Área Administrativa
+
+- 🔐 Login administrativo com JWT
+- 📊 Dashboard com estatísticas
+- ➕ Cadastro de livros
+- ✏️ Edição de livros
+- ❌ Exclusão de livros
+- 📦 Controle de empréstimos
+- 🔄 Controle de devoluções
+- 📈 Relatórios administrativos
+
+---
+
+# 🚀 Tecnologias Utilizadas
+
+## Frontend
+
+- React.js
+- Vite
+- React Router DOM
+- Axios
+- CSS3
+- React Icons
+
+---
+
+## Backend
+
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT (JSON Web Token)
+- Bcrypt
+
+---
+
+## ☁️ Deploy
+
+- Frontend: Vercel
+- Backend: Render
+- Banco de Dados: MongoDB Atlas
+
+---
+
+# 📱 Responsividade
+
+O sistema foi desenvolvido com design responsivo, permitindo utilização em:
+
+- 💻 Computadores
+- 📱 Smartphones
+- 📲 Tablets
+
+---
+
+# 🔐 Segurança
+
+O sistema utiliza autenticação JWT para proteger as rotas administrativas e garantir maior segurança no acesso às informações.
+
+---
+
+# 📂 Estrutura do Projeto
+
+## Frontend
+
+```bash
+src/
+ ├── assets/
+ ├── components/
+ ├── pages/
+ ├── services/
+ └── App.jsx
+```
+
+---
+
+## Backend
+
+```bash
+src/
+ ├── controllers/
+ ├── middlewares/
+ ├── models/
+ ├── routes/
+ └── app.js
+```
+
+---
+
+# ⚙️ Como Executar o Projeto
+
+## 🔧 Backend
+
+### Instalar dependências
+
+```bash
+npm install
+```
+
+### Rodar servidor
+
+```bash
+npm run dev
+```
+
+Servidor:
+
+```bash
+http://localhost:5000
+```
+
+---
+
+## 🎨 Frontend
+
+### Instalar dependências
+
+```bash
+npm install
+```
+
+### Rodar aplicação
+
+```bash
+npm run dev
+```
+
+Aplicação:
+
+```bash
+http://localhost:5173
+```
+
+---
+
+# 🌍 Impacto Social
+
+O projeto busca contribuir com o incentivo à leitura, democratização do acesso ao conhecimento e inclusão digital da comunidade.
+
+A proposta demonstra como a tecnologia pode ser utilizada para gerar impacto social positivo através da educação.
+
+---
+
+# 📸 Sistema
+
+## 🏠 Página Inicial
+Adicione aqui um print da Home.
+
+---
+
+## 📚 Catálogo
+Adicione aqui um print do catálogo.
+
+---
+
+## 📊 Dashboard
+Adicione aqui um print do painel administrativo.
+
+---
+
+## 📦 Empréstimos
+Adicione aqui um print da página de empréstimos.
+
+---
+
+# 👨‍💻 Desenvolvido por
+
+Projeto desenvolvido pelos alunos do eixo de Computação da **UNIVESP** para o **Projeto Integrador**.
+
+---
+
+# 📄 Licença
+
+Este projeto foi desenvolvido para fins educacionais e acadêmicos.
+
