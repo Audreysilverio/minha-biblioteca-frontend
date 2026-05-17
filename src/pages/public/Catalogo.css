@@ -28,17 +28,15 @@
 
 .catalogo-search input {
   width: 100%;
-
   padding: 16px 20px;
 
   border: none;
-
   border-radius: 16px;
 
   background: white;
 
   box-shadow:
-    0 4px 14px rgba(0,0,0,0.05);
+    0 4px 14px rgba(0, 0, 0, 0.05);
 
   outline: none;
 
@@ -72,7 +70,7 @@
   transition: 0.2s;
 
   box-shadow:
-    0 4px 14px rgba(0,0,0,0.06);
+    0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
 .catalogo-card:hover {
@@ -146,34 +144,4 @@
   .catalogo-card img {
     height: 260px;
   }
-}
-
-.reservar-btn {
-  width: 100%;
-
-  margin-top: 18px;
-
-  height: 48px;
-
-  border: none;
-
-  border-radius: 14px;
-
-  background: #d50000;
-
-  color: white;
-
-  font-size: 0.95rem;
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition: 0.2s;
-}
-
-.reservar-btn:hover {
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 8px 18px rgba(213,0,0,0.25);
 }

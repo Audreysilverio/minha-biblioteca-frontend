@@ -53,7 +53,7 @@ export default function LoginUsuario() {
       )
 
       alert(
-        'Login realizado!'
+        'Login realizado com sucesso!'
       )
 
       navigate('/catalogo')
@@ -92,14 +92,14 @@ export default function LoginUsuario() {
           </h1>
 
           <p>
-            Faça login para reservar livros.
+            Faça login para acessar a biblioteca.
           </p>
 
           <input
             type="email"
             placeholder="Email"
             value={email}
-            onChange={e =>
+            onChange={(e) =>
               setEmail(
                 e.target.value
               )
@@ -111,7 +111,7 @@ export default function LoginUsuario() {
             type="password"
             placeholder="Senha"
             value={senha}
-            onChange={e =>
+            onChange={(e) =>
               setSenha(
                 e.target.value
               )
@@ -124,19 +124,15 @@ export default function LoginUsuario() {
             disabled={loading}
           >
 
-            {
-              loading
-                ? 'Entrando...'
-                : 'Entrar'
-            }
+            {loading
+              ? 'Entrando...'
+              : 'Entrar'}
 
           </button>
 
           <span>
 
-            Não possui conta?
-
-            {' '}
+            Não possui conta?{' '}
 
             <Link to="/cadastro">
 

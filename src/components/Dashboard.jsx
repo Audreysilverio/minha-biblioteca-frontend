@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react'
 
 import {
   FaBook,
-  FaExchangeAlt,
-  FaBookmark
+  FaExchangeAlt
 } from 'react-icons/fa'
 
 import api from '../services/api'
@@ -11,33 +10,23 @@ import api from '../services/api'
 import './Dashboard.css'
 
 export default function Dashboard() {
-
-  const [dados, setDados] =
-    useState({
-      livros: 0,
-      emprestimos: 0,
-      reservas: 0,
-      disponiveis: 0
-    })
+  const [dados, setDados] = useState({
+    livros: 0,
+    emprestimos: 0,
+    disponiveis: 0
+  })
 
   useEffect(() => {
-
     carregarDados()
-
   }, [])
 
   async function carregarDados() {
-
     try {
-
       const livrosRes =
         await api.get('/livros')
 
       const emprestimosRes =
         await api.get('/emprestimos')
-
-      const reservasRes =
-        await api.get('/reservas')
 
       const livros =
         livrosRes.data.livros ||
@@ -46,48 +35,35 @@ export default function Dashboard() {
       const emprestimos =
         emprestimosRes.data
 
-      const reservas =
-        reservasRes.data
-
-      const disponiveis =
-        livros.filter(
-          livro =>
-            livro.quantidadeDisponivel > 0
-        )
+      const disponiveis = livros.filter(
+        (livro) =>
+          livro.quantidadeDisponivel > 0
+      )
 
       setDados({
-
         livros: livros.length,
 
         emprestimos:
           emprestimos.filter(
-            emp => !emp.devolvido
+            (emp) => !emp.devolvido
           ).length,
-
-        reservas:
-          reservas.length,
 
         disponiveis:
           disponiveis.length
-
       })
 
     } catch (error) {
-
       console.error(error)
     }
   }
 
   return (
-
     <div className="dashboard-page">
 
       <div className="dashboard-top-area">
 
         <h1 className="dashboard-title">
-
           Minha <span>Biblioteca</span>
-
         </h1>
 
       </div>
@@ -97,21 +73,13 @@ export default function Dashboard() {
         <div className="dashboard-box">
 
           <div className="dashboard-circle red-bg">
-
             <FaBook />
-
           </div>
 
           <div>
+            <h2>{dados.livros}</h2>
 
-            <h2>
-              {dados.livros}
-            </h2>
-
-            <p>
-              Total de livros
-            </p>
-
+            <p>Total de livros</p>
           </div>
 
         </div>
@@ -119,43 +87,13 @@ export default function Dashboard() {
         <div className="dashboard-box">
 
           <div className="dashboard-circle black-bg">
-
             <FaExchangeAlt />
-
           </div>
 
           <div>
+            <h2>{dados.emprestimos}</h2>
 
-            <h2>
-              {dados.emprestimos}
-            </h2>
-
-            <p>
-              Empréstimos ativos
-            </p>
-
-          </div>
-
-        </div>
-
-        <div className="dashboard-box">
-
-          <div className="dashboard-circle pink-bg">
-
-            <FaBookmark />
-
-          </div>
-
-          <div>
-
-            <h2>
-              {dados.reservas}
-            </h2>
-
-            <p>
-              Reservas
-            </p>
-
+            <p>Empréstimos ativos</p>
           </div>
 
         </div>
@@ -164,13 +102,9 @@ export default function Dashboard() {
 
       <div className="dashboard-last-books">
 
-        <h2>
-          Livros disponíveis
-        </h2>
+        <h2>Livros disponíveis</h2>
 
-        <h1>
-          {dados.disponiveis}
-        </h1>
+        <h1>{dados.disponiveis}</h1>
 
       </div>
 

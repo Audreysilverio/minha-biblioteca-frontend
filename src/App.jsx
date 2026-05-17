@@ -24,7 +24,6 @@ import Categorias from './pages/Categorias'
 import Emprestimos from './pages/Emprestimos'
 import Relatorios from './pages/Relatorios'
 import Configuracoes from './pages/Configuracoes'
-import Reservas from './pages/Reservas'
 
 /* PUBLICO */
 
@@ -33,23 +32,17 @@ import Catalogo from './pages/public/Catalogo'
 import Sobre from './pages/public/Sobre'
 import Cadastro from './pages/public/Cadastro'
 import LoginUsuario from './pages/public/LoginUsuario'
-import MinhasReservas from './pages/public/MinhasReservas'
 import LivroDetalhes from './pages/public/LivroDetalhes'
 
 function AdminLayout() {
-
   return (
-
     <div className="container">
-
       <Sidebar />
 
       <div className="main-content">
-
         <Header />
 
         <Routes>
-
           <Route
             path="/admin"
             element={<Dashboard />}
@@ -89,31 +82,19 @@ function AdminLayout() {
             path="/configuracoes"
             element={<Configuracoes />}
           />
-
-          <Route
-            path="/reservas"
-            element={<Reservas />}
-          />
-
         </Routes>
-
       </div>
-
     </div>
   )
 }
 
 function App() {
-
   const token =
     localStorage.getItem('token')
 
   return (
-
     <div className="app-wrapper">
-
       <BrowserRouter>
-
         <Routes>
 
           {/* PUBLICO */}
@@ -144,11 +125,6 @@ function App() {
           />
 
           <Route
-            path="/minhas-reservas"
-            element={<MinhasReservas />}
-          />
-
-          <Route
             path="/livro/:id"
             element={<LivroDetalhes />}
           />
@@ -165,16 +141,15 @@ function App() {
           <Route
             path="/*"
             element={
-              token
-                ? <AdminLayout />
-                : <Navigate to="/login" />
+              token ? (
+                <AdminLayout />
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
-
         </Routes>
-
       </BrowserRouter>
-
     </div>
   )
 }

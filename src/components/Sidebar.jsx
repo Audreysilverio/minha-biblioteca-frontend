@@ -2,22 +2,20 @@ import logo from '../assets/logo.png'
 
 import { NavLink } from 'react-router-dom'
 
-import './Sidebar.css'
-
 import {
   FaHome,
   FaBook,
   FaTags,
   FaExchangeAlt,
   FaChartBar,
-  FaCog,
-  FaBookmark
+  FaCog
 } from 'react-icons/fa'
+
+import './Sidebar.css'
 
 export default function Sidebar() {
 
   const menu = [
-
     {
       nome: 'Início',
       rota: '/admin',
@@ -52,14 +50,7 @@ export default function Sidebar() {
       nome: 'Configurações',
       rota: '/configuracoes',
       icon: <FaCog />
-    },
-
-    {
-      nome: 'Reservas',
-      rota: '/reservas',
-      icon: <FaBookmark />
     }
-
   ]
 
   return (
@@ -70,36 +61,32 @@ export default function Sidebar() {
 
         <img
           src={logo}
-          alt="Logo ASZN"
+          alt="Logo Biblioteca"
         />
 
       </div>
 
       <nav>
 
-        {
-          menu.map((item) => (
+        {menu.map((item) => (
 
-            <NavLink
-              key={item.nome}
-              to={item.rota}
-              className={({ isActive }) =>
-                isActive
-                  ? 'active'
-                  : ''
-              }
-            >
+          <NavLink
+            key={item.nome}
+            to={item.rota}
+            className={({ isActive }) =>
+              isActive ? 'active' : ''
+            }
+          >
 
-              {item.icon}
+            {item.icon}
 
-              <span>
-                {item.nome}
-              </span>
+            <span>
+              {item.nome}
+            </span>
 
-            </NavLink>
+          </NavLink>
 
-          ))
-        }
+        ))}
 
       </nav>
 

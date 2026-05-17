@@ -4,24 +4,24 @@ import { FaSearch } from 'react-icons/fa'
 import './PublicHeader.css'
 
 export default function PublicHeader() {
-
   const navigate = useNavigate()
 
   function logoutUsuario() {
+    localStorage.removeItem(
+      'usuarioToken'
+    )
 
-  localStorage.removeItem(
-    'usuarioToken'
-  )
+    localStorage.removeItem(
+      'usuario'
+    )
 
-  localStorage.removeItem(
-    'usuario'
-  )
+    navigate('/')
+  }
 
-  navigate('/')
-}
+  const usuarioLogado =
+    localStorage.getItem('usuarioToken')
 
   return (
-
     <header className="public-header">
 
       <div
@@ -45,10 +45,6 @@ export default function PublicHeader() {
           Sobre
         </Link>
 
-        <Link to="/minhas-reservas">
-        Minhas Reservas
-        </Link>
-
       </nav>
 
       <div className="header-actions">
@@ -64,29 +60,23 @@ export default function PublicHeader() {
 
         </div>
 
-       {
-  localStorage.getItem(
-    'usuarioToken'
-  ) ? (
+        {usuarioLogado ? (
 
-    <button
-      onClick={logoutUsuario}
-    >
-      Sair
-    </button>
+          <button onClick={logoutUsuario}>
+            Sair
+          </button>
 
-  ) : (
+        ) : (
 
-    <button
-      onClick={() =>
-        navigate('/entrar')
-      }
-    >
-      Entrar
-    </button>
+          <button
+            onClick={() =>
+              navigate('/entrar')
+            }
+          >
+            Entrar
+          </button>
 
-  )
-}
+        )}
 
       </div>
 

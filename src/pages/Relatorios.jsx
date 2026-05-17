@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react'
 import {
   FaBook,
   FaExchangeAlt,
-  FaCheckCircle,
-  FaBookmark
+  FaCheckCircle
 } from 'react-icons/fa'
 
 import api from '../services/api'
@@ -19,16 +18,11 @@ export default function Relatorios() {
   const [emprestimos, setEmprestimos] =
     useState([])
 
-  const [reservas, setReservas] =
-    useState([])
-
   const [loading, setLoading] =
     useState(true)
 
   useEffect(() => {
-
     carregarDados()
-
   }, [])
 
   async function carregarDados() {
@@ -41,17 +35,10 @@ export default function Relatorios() {
       const emprestimosRes =
         await api.get('/emprestimos')
 
-      const reservasRes =
-        await api.get('/reservas')
-
       setLivros(livrosRes.data)
 
       setEmprestimos(
         emprestimosRes.data
-      )
-
-      setReservas(
-        reservasRes.data
       )
 
     } catch (error) {
@@ -93,14 +80,10 @@ export default function Relatorios() {
 
   const devolvidos =
     emprestimos.filter(
-      emp => emp.devolvido
+      (emp) => emp.devolvido
     ).length
 
-  const reservasAtivas =
-    reservas.length
-
   if (loading) {
-
     return <h2>Carregando...</h2>
   }
 
@@ -125,9 +108,7 @@ export default function Relatorios() {
         <div className="relatorio-card">
 
           <div className="relatorio-icon red">
-
             <FaBook />
-
           </div>
 
           <div>
@@ -147,9 +128,7 @@ export default function Relatorios() {
         <div className="relatorio-card">
 
           <div className="relatorio-icon black">
-
             <FaCheckCircle />
-
           </div>
 
           <div>
@@ -169,9 +148,7 @@ export default function Relatorios() {
         <div className="relatorio-card">
 
           <div className="relatorio-icon pink">
-
             <FaExchangeAlt />
-
           </div>
 
           <div>
@@ -182,28 +159,6 @@ export default function Relatorios() {
 
             <p>
               Empréstimos
-            </p>
-
-          </div>
-
-        </div>
-
-        <div className="relatorio-card">
-
-          <div className="relatorio-icon red">
-
-            <FaBookmark />
-
-          </div>
-
-          <div>
-
-            <h2>
-              {reservasAtivas}
-            </h2>
-
-            <p>
-              Reservas
             </p>
 
           </div>
@@ -224,21 +179,10 @@ export default function Relatorios() {
 
             <tr>
 
-              <th>
-                Livro
-              </th>
-
-              <th>
-                Leitor
-              </th>
-
-              <th>
-                Status
-              </th>
-
-              <th>
-                Data
-              </th>
+              <th>Livro</th>
+              <th>Leitor</th>
+              <th>Status</th>
+              <th>Data</th>
 
             </tr>
 
@@ -246,70 +190,62 @@ export default function Relatorios() {
 
           <tbody>
 
-            {
-              emprestimos.length === 0 ? (
+            {emprestimos.length === 0 ? (
 
-                <tr>
+              <tr>
 
-                  <td colSpan="4">
+                <td colSpan="4">
+                  Nenhum empréstimo encontrado.
+                </td>
 
-                    Nenhum empréstimo encontrado.
+              </tr>
+
+            ) : (
+
+              emprestimos.map((emp) => (
+
+                <tr key={emp._id}>
+
+                  <td>
+                    {emp.livro?.titulo}
+                  </td>
+
+                  <td>
+                    {emp.nomeLeitor}
+                  </td>
+
+                  <td>
+
+                    <span
+                      className={
+                        emp.devolvido
+                          ? 'status-green'
+                          : 'status-red'
+                      }
+                    >
+
+                      {emp.devolvido
+                        ? 'Devolvido'
+                        : 'Emprestado'}
+
+                    </span>
+
+                  </td>
+
+                  <td>
+
+                    {new Date(
+                      emp.createdAt
+                    ).toLocaleDateString(
+                      'pt-BR'
+                    )}
 
                   </td>
 
                 </tr>
 
-              ) : (
-
-                emprestimos.map(emp => (
-
-                  <tr key={emp._id}>
-
-                    <td>
-                      {emp.livro?.titulo}
-                    </td>
-
-                    <td>
-                      {emp.nomeLeitor}
-                    </td>
-
-                    <td>
-
-                      <span
-                        className={
-                          emp.devolvido
-                            ? 'status-green'
-                            : 'status-red'
-                        }
-                      >
-
-                        {
-                          emp.devolvido
-                            ? 'Devolvido'
-                            : 'Emprestado'
-                        }
-
-                      </span>
-
-                    </td>
-
-                    <td>
-
-                      {
-                        new Date(
-                          emp.createdAt
-                        ).toLocaleDateString(
-                          'pt-BR'
-                        )
-                      }
-
-                    </td>
-
-                  </tr>
-
-                ))
-              )
-            }
+              ))
+            )}
 
           </tbody>
 
@@ -325,8 +261,8 @@ export default function Relatorios() {
 
         <p>
 
-          Livros devolvidos:
-          {' '}
+          Livros devolvidos:{' '}
+
           <strong>
             {devolvidos}
           </strong>
@@ -335,8 +271,7 @@ export default function Relatorios() {
 
         <p>
 
-          Empréstimos ativos:
-          {' '}
+          Empréstimos ativos:{' '}
 
           <strong>
 

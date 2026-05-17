@@ -6,16 +6,20 @@
 }
 
 body {
-  background-color: #f8f9fa; /* Fundo cinza claro da imagem */
+  background: #f8f9fa;
 }
 
-/* O container principal que segura o projeto todo */
-.container {
-  display: flex;
+/* LAYOUT */
+
+.container,
+.app-wrapper {
   min-height: 100vh;
 }
 
-/* A área da direita (Header + Conteúdo das páginas) */
+.container {
+  display: flex;
+}
+
 .main-content {
   flex: 1;
   display: flex;
@@ -23,7 +27,8 @@ body {
   overflow-x: hidden;
 }
 
-/* Estilos globais do Dashboard (Cards e Títulos) */
+/* DASHBOARD */
+
 .dashboard-page {
   padding: 30px 40px;
 }
@@ -53,7 +58,14 @@ body {
   border-radius: 12px;
   font-weight: 700;
   cursor: pointer;
+  transition: 0.2s;
 }
+
+.dashboard-button:hover {
+  opacity: 0.9;
+}
+
+/* GRID */
 
 .dashboard-grid {
   display: grid;
@@ -62,14 +74,24 @@ body {
   margin-bottom: 35px;
 }
 
-.dashboard-box {
+/* CARDS */
+
+.dashboard-box,
+.dashboard-last-books {
   background: white;
   border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-box {
   padding: 25px;
   display: flex;
   align-items: center;
   gap: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.dashboard-last-books {
+  padding: 25px;
 }
 
 .dashboard-circle {
@@ -83,11 +105,19 @@ body {
   font-size: 1.4rem;
 }
 
-.red-bg { background: #d50000; }
-.black-bg { background: #111; }
-.pink-bg { background: #c2185b; }
+.red-bg {
+  background: #d50000;
+}
 
-/* TEXTO DOS CARDS */
+.black-bg {
+  background: #111;
+}
+
+.pink-bg {
+  background: #c2185b;
+}
+
+/* TEXTOS */
 
 .dashboard-box h2 {
   font-size: 2rem;
@@ -95,18 +125,9 @@ body {
   margin-bottom: 5px;
 }
 
-.dashboard-box p {
+.dashboard-box p,
+.dashboard-book-row p {
   color: #666;
-  font-size: 0.95rem;
-}
-
-/* ÚLTIMOS LIVROS */
-
-.dashboard-last-books {
-  background: white;
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
 .dashboard-last-books h2 {
@@ -129,23 +150,82 @@ body {
   font-size: 1rem;
 }
 
-.dashboard-book-row p {
-  color: #666;
-  margin-top: 5px;
+/* DARK MODE */
+
+.dark,
+.dark .container,
+.dark .main-content {
+  background: #121212;
+  color: white;
+}
+
+.dark .sidebar {
+  background: #1b1b1b;
+}
+
+.dark .header,
+.dark .dashboard-box,
+.dark .dashboard-last-books,
+.dark .dashboard-card,
+.dark .grafico-card,
+.dark .dashboard-table,
+.dark .categoria-card,
+.dark .card {
+  background: #1e1e1e;
+  color: white;
+}
+
+.dark h1,
+.dark h2,
+.dark h3,
+.dark p,
+.dark span,
+.dark strong,
+.dark label,
+.dark th,
+.dark td,
+.dark a {
+  color: #f1f1f1;
+}
+
+.dark table {
+  background: #1e1e1e;
+  color: white;
+}
+
+.dark th {
+  background: #2a2a2a;
+}
+
+.dark td {
+  border-color: #333;
+}
+
+.dark input,
+.dark textarea,
+.dark select {
+  background: #1e1e1e;
+  color: white;
+  border: 1px solid #333;
+}
+
+.dark .search-box {
+  background: #1e1e1e;
+}
+
+.dark .search-box input::placeholder {
+  color: #bbb;
 }
 
 /* RESPONSIVIDADE */
 
 @media (max-width: 1100px) {
-
   .dashboard-grid {
     grid-template-columns: 1fr;
   }
-
 }
 
 @media (max-width: 768px) {
-
   .dashboard-page {
     padding: 20px;
   }
@@ -177,11 +257,9 @@ body {
   .dashboard-box h2 {
     font-size: 1.7rem;
   }
-
 }
 
 @media (max-width: 480px) {
-
   .dashboard-title {
     font-size: 1.6rem;
   }
@@ -189,167 +267,4 @@ body {
   .dashboard-last-books {
     padding: 20px;
   }
-
-}
-
-.dark {
-  background: #111;
-
-  color: white;
-
-  min-height: 100vh;
-}
-
-/* MAIN */
-
-.dark .main-content {
-  background: #181818;
-}
-
-/* SIDEBAR */
-
-.dark .sidebar {
-  background: #151515;
-}
-
-/* HEADER */
-
-.dark .header {
-  background: #1f1f1f;
-}
-
-/* CARDS */
-
-.dark .dashboard-card,
-.dark .grafico-card,
-.dark .dashboard-table,
-.dark .categoria-card,
-.dark .reserva-admin-card {
-  background: #1f1f1f;
-
-  color: white;
-}
-
-/* TEXTOS */
-
-.dark h1,
-.dark h2,
-.dark h3,
-.dark p,
-.dark span,
-.dark strong,
-.dark label,
-.dark th,
-.dark td {
-  color: #f1f1f1;
-}
-
-/* INPUTS */
-
-.dark input,
-.dark select,
-.dark textarea {
-  background: #222;
-
-  color: white;
-
-  border: 1px solid #333;
-}
-
-/* TABELAS */
-
-.dark table {
-  background: #1f1f1f;
-}
-
-/* LINKS */
-
-.dark a {
-  color: white;
-}
-
-.app-wrapper {
-  min-height: 100vh;
-}
-
-.dark,
-.dark .container,
-.dark .main-content {
-  background: #111;
-}
-
-.app-wrapper {
-  min-height: 100vh;
-}
-
-/* DARK MODE */
-
-.dark {
-  background: #121212;
-  color: white;
-}
-
-/* HEADER */
-
-.dark .header {
-  color: white;
-}
-
-/* SEARCH */
-
-.dark .search-box {
-  background: #1e1e1e;
-}
-
-.dark .search-box input {
-  color: white;
-}
-
-.dark .search-box input::placeholder {
-  color: #bbb;
-}
-
-/* SIDEBAR */
-
-.dark .sidebar {
-  background: #1b1b1b;
-}
-
-/* CARDS */
-
-.dark .card,
-.dark .dashboard-card {
-  background: #1e1e1e;
-  color: white;
-}
-
-/* TABELAS */
-
-.dark table {
-  background: #1e1e1e;
-  color: white;
-}
-
-.dark th {
-  background: #2a2a2a;
-}
-
-.dark td {
-  border-color: #333;
-}
-
-/* INPUTS */
-
-.dark input,
-.dark textarea,
-.dark select {
-  background: #1e1e1e;
-  color: white;
-  border: 1px solid #333;
-}
-
-/* BOTÕES */
-
-.dark button {
-  transition: 0.2s;
 }

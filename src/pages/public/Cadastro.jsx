@@ -20,23 +20,18 @@ export default function Cadastro() {
 
   const [form, setForm] =
     useState({
-
       nome: '',
       email: '',
       senha: '',
       telefone: ''
-
     })
 
   function handleChange(e) {
 
     setForm({
-
       ...form,
-
       [e.target.name]:
         e.target.value
-
     })
   }
 
@@ -49,11 +44,8 @@ export default function Cadastro() {
     try {
 
       await api.post(
-
         '/usuarios/register',
-
         form
-
       )
 
       alert(
@@ -96,7 +88,7 @@ export default function Cadastro() {
           </h1>
 
           <p>
-            Cadastre-se para reservar livros.
+            Cadastre-se para acessar a biblioteca.
           </p>
 
           <input
@@ -140,24 +132,18 @@ export default function Cadastro() {
             disabled={loading}
           >
 
-            {
-              loading
-                ? 'Criando conta...'
-                : 'Criar conta'
-            }
+            {loading
+              ? 'Criando conta...'
+              : 'Criar conta'}
 
           </button>
 
           <span>
 
-            Já possui conta?
-
-            {' '}
+            Já possui conta?{' '}
 
             <Link to="/entrar">
-
               Entrar
-
             </Link>
 
           </span>

@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
 import PublicHeader from '../../components/PublicHeader'
-
 import Footer from '../../components/Footer'
 
 import './Sobre.css'
@@ -26,56 +25,71 @@ export default function Sobre() {
 
           <p>
 
-            O projeto <strong>Minha Biblioteca</strong>
-            foi desenvolvido pelos alunos do
-            eixo de Computação da
-            <strong> UNIVESP </strong>
+            O projeto <strong>Minha Biblioteca </strong>
+             foi desenvolvido pelos alunos do eixo
+            de Computação da <strong>UNIVESP</strong>,
             como parte do Projeto Integrador,
-            com o objetivo de criar uma
-            plataforma moderna para gerenciamento
-            de bibliotecas digitais.
+            com o objetivo de criar uma plataforma
+            moderna, acessível e eficiente para
+            gerenciamento de bibliotecas e incentivo
+            à leitura na comunidade.
 
           </p>
 
           <p>
 
-            O sistema foi pensado para facilitar
-            o acesso aos livros, permitir reservas,
-            organizar empréstimos e aproximar
-            a comunidade do universo da leitura
-            através da tecnologia.
+            A plataforma foi criada especialmente
+            para apoiar as atividades da
+            <strong> Associação Sempre Zaki Narchi</strong>,
+            contribuindo com a organização do acervo,
+            controle de empréstimos e democratização
+            do acesso aos livros para crianças,
+            jovens e famílias atendidas pela instituição.
 
           </p>
 
           <p>
 
-            Além do desenvolvimento técnico,
-            o projeto também possui um importante
-            papel social, buscando contribuir
-            com iniciativas voltadas à educação
-            e ao incentivo à leitura na comunidade
-            do <strong>Zaki Narchi</strong>.
+            O sistema permite o cadastro de livros,
+            gerenciamento de empréstimos e devoluções,
+            controle da disponibilidade dos exemplares
+            e visualização do catálogo de forma simples,
+            intuitiva e responsiva.
 
           </p>
 
           <p>
 
-            A plataforma utiliza tecnologias
-            modernas como React, Node.js,
-            Express e MongoDB, oferecendo uma
-            experiência acessível, intuitiva
-            e responsiva para administradores
-            e leitores.
+            O desenvolvimento do projeto utilizou
+            tecnologias modernas como
+            <strong> React</strong>,
+            <strong> Node.js</strong>,
+            <strong> Express</strong> e
+            <strong> MongoDB</strong>,
+            proporcionando desempenho, segurança
+            e uma experiência agradável tanto para
+            administradores quanto para usuários.
 
           </p>
 
           <p>
 
-            Este projeto representa a união
-            entre educação, tecnologia e impacto
-            social, mostrando como soluções
-            digitais podem transformar o acesso
-            ao conhecimento.
+            Mais do que um sistema de biblioteca,
+            o projeto representa a união entre
+            <strong> educação, tecnologia e impacto social</strong>,
+            demonstrando como soluções digitais podem
+            fortalecer iniciativas comunitárias e ampliar
+            o acesso ao conhecimento.
+
+          </p>
+
+          <p>
+
+            A proposta do Minha Biblioteca é continuar
+            evoluindo, oferecendo novos recursos e
+            contribuindo para o desenvolvimento educacional
+            e cultural da comunidade atendida pela
+            Associação Sempre Zaki Narchi.
 
           </p>
 
