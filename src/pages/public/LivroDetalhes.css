@@ -169,3 +169,15 @@
   }
 
 }
+/* RESERVA */
+
+.btn-reservar {
+  margin-top: 10px;
+
+  background: #8b1e3f !important;
+}
+
+.btn-reservar:hover {
+  box-shadow:
+    0 8px 18px rgba(139, 30, 63, 0.3);
+}

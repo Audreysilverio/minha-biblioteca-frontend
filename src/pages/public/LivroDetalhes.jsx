@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+
 import { useParams } from 'react-router-dom'
 
 import api from '../../services/api'
@@ -9,39 +10,89 @@ import Footer from '../../components/Footer'
 import './LivroDetalhes.css'
 
 export default function LivroDetalhes() {
+
   const { id } = useParams()
 
   const [livro, setLivro] = useState(null)
-  const [loading, setLoading] = useState(true)
+
+  const [loading, setLoading] =
+    useState(true)
 
   useEffect(() => {
+
     carregarLivro()
+
   }, [id])
 
   async function carregarLivro() {
+
     try {
-      const res = await api.get(`/livros/${id}`)
+
+      const res =
+        await api.get(`/livros/${id}`)
+
       setLivro(res.data)
+
     } catch (error) {
+
       console.log(error)
+
     } finally {
+
       setLoading(false)
     }
   }
 
+  async function solicitarEmprestimo() {
+
+  try {
+
+    const nomeLeitor =
+      localStorage.getItem(
+        'nomeUsuario'
+      ) || 'Leitor'
+
+    await api.post(
+      '/emprestimos',
+      {
+        livroId: livro._id,
+        nomeLeitor
+      }
+    )
+
+    alert(
+      'Empréstimo realizado com sucesso!'
+    )
+
+    carregarLivro()
+
+  } catch (error) {
+
+    console.log(error)
+
+    alert(
+      'Erro ao solicitar empréstimo'
+    )
+  }
+}
   if (loading) {
+
     return <h1>Carregando...</h1>
   }
 
   if (!livro) {
+
     return <h1>Livro não encontrado.</h1>
   }
 
   return (
+
     <div className="livro-detalhes-page">
+
       <PublicHeader />
 
       <div className="livro-detalhes-container">
+
         <img
           src={
             livro.capa ||
@@ -51,22 +102,37 @@ export default function LivroDetalhes() {
         />
 
         <div className="livro-detalhes-info">
-          <h1>{livro.titulo}</h1>
 
-          <h3>{livro.autor}</h3>
+          <h1>
+            {livro.titulo}
+          </h1>
 
-          <p>{livro.descricao}</p>
+          <h3>
+            {livro.autor}
+          </h3>
 
           <p>
-            <strong>Categoria:</strong>{' '}
-            {livro.categoria}
+            {livro.descricao}
           </p>
 
           <p>
+
+            <strong>
+              Categoria:
+            </strong>{' '}
+
+            {livro.categoria}
+
+          </p>
+
+          <p>
+
             <strong>
               Exemplares disponíveis:
             </strong>{' '}
+
             {livro.quantidadeDisponivel}
+
           </p>
 
           <span
@@ -76,14 +142,38 @@ export default function LivroDetalhes() {
                 : 'indisponivel'
             }
           >
+
             {livro.quantidadeDisponivel > 0
               ? 'Disponível'
               : 'Indisponível'}
+
           </span>
+
+          {
+
+            livro.quantidadeDisponivel > 0 && (
+
+              <button
+                className="btn-reservar"
+                onClick={
+                  solicitarEmprestimo
+                }
+              >
+
+                Solicitar Empréstimo
+
+              </button>
+
+            )
+
+          }
+
         </div>
+
       </div>
 
       <Footer />
+
     </div>
   )
 }
